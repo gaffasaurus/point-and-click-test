@@ -1,0 +1,19 @@
+{
+  "main room": {
+    "bg": "images/bgimages/main room bg.png",
+    "clickables": [
+      {
+        "image": "images/fullgeff.png",
+        "x": 100,
+        "y": 300,
+        "text": "Hi"
+      },
+      {
+        "image": "images/hatsune drink.png",
+        "x": 500,
+        "y": 130,
+        "text": "Glug"
+      }
+    ]
+  }
+}

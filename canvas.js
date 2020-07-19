@@ -51,7 +51,7 @@ loadRoomData()
 
 //Draw background
 function drawBackground() {
-  ctx.drawImage(roomData[currentRoom].background, 0, 0); //Will have a counter to track which room you are in later, this is for testing.
+  ctx.drawImage(roomData[currentRoom].background, 0, 0);
 }
 
 function drawClickables() {
@@ -64,6 +64,7 @@ function redraw() {
   drawBackground();
   drawClickables();
 }
+redraw();
 
 // Canvas utility functions
 

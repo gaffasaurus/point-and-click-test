@@ -26,7 +26,7 @@ class Clickable {
   }
 
   hover(e) {
-    return this.between(e.clientX - canvas.offsetLeft, this.x, this.x + this.image.width) && this.between(e.clientY - canvas.offsetTop, this.y, this.y + this.image.height);
+    return this.between((e.clientX - canvas.offsetLeft) / scale, this.x, this.x + this.image.width) && this.between((e.clientY - canvas.offsetTop) / scale, this.y, this.y + this.image.height);
   }
 
   changeOnHover(hovered) {

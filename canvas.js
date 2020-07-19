@@ -1,8 +1,19 @@
 const RATIO = 2.2;
+const IDEAL_WIDTH = 1280;
+
 const canvas = document.querySelector(".myCanvas");
-const width = canvas.width = document.body.clientWidth;
-const height = canvas.height = width / RATIO;
 const ctx = canvas.getContext('2d');
+
+let width, height, scale;
+function setSizeAndRedraw() {
+  width = canvas.width = document.body.clientWidth;
+  height = canvas.height = width / RATIO;
+  // Scale canvas up/down to fit screen
+  scale = width / IDEAL_WIDTH;
+  ctx.scale(scale, scale);
+  redraw();
+}
+window.addEventListener('resize', setSizeAndRedraw);
 
 async function loadRoomData () {
   // Load JSON file
@@ -33,8 +44,7 @@ loadRoomData()
       bgimages.push(rooms[key].background);
       clickables.push(...rooms[key].clickables);
     }
-    drawBackground();
-    drawClickables();
+    setSizeAndRedraw();
   });
 
 //Draw background

@@ -1,8 +1,19 @@
 const RATIO = 2.2;
+const IDEAL_WIDTH = 1280;
+
 const canvas = document.querySelector(".myCanvas");
-const width = canvas.width = document.body.clientWidth;
-const height = canvas.height = width / RATIO;
 const ctx = canvas.getContext('2d');
+
+let width, height, scale;
+function setSizeAndRedraw() {
+  width = canvas.width = document.body.clientWidth;
+  height = canvas.height = width / RATIO;
+  // Scale canvas up/down to fit screen
+  scale = width / IDEAL_WIDTH;
+  ctx.scale(scale, scale);
+  redraw();
+}
+window.addEventListener('resize', setSizeAndRedraw);
 
 async function loadRoomData () {
   // Load JSON file
@@ -25,25 +36,30 @@ async function loadRoomData () {
   }
   return rooms;
 }
-const clickables = [];
-const bgimages = [];
+let roomData = {};
+let currentRoom;
+const arrows = [
+  new Arrow(20, IDEAL_WIDTH / RATIO / 2, 'left', 'left room'),
+  new Arrow(IDEAL_WIDTH - 20, IDEAL_WIDTH / RATIO / 2, 'right', 'right room'),
+  new Arrow(IDEAL_WIDTH / 2, 20, 'up', 'up room'),
+  new Arrow(IDEAL_WIDTH / 2, IDEAL_WIDTH / RATIO - 20, 'down', 'down room')
+];
 loadRoomData()
   .then(rooms => {
-    for (const key in rooms) {
-      bgimages.push(rooms[key].background);
-      clickables.push(...rooms[key].clickables);
-    }
-    drawBackground();
-    drawClickables();
+    roomData = rooms;
+    currentRoom = 'main room';
+    // TEMP; maybe arrows should be specified in the JSON
+    roomData[currentRoom].clickables.push(...arrows);
+    setSizeAndRedraw();
   });
 
 //Draw background
 function drawBackground() {
-  ctx.drawImage(bgimages[0], 0, 0); //Will have a counter to track which room you are in later, this is for testing.
+  ctx.drawImage(roomData[currentRoom].background, 0, 0); //Will have a counter to track which room you are in later, this is for testing.
 }
 
 function drawClickables() {
-  for (const clickable of clickables) {
+  for (const clickable of roomData[currentRoom].clickables) {
     clickable.draw();
   }
 }
@@ -97,15 +113,17 @@ function getPixels(image) {
 }
 
 window.addEventListener('click', e => {
-  for (const clickable of clickables) {
+  for (const clickable of roomData[currentRoom].clickables) {
     if (clickable.hover(e)) {
-      clickable.drawText();
+      clickable.onClick();
     }
   }
+  redraw();
 });
 
 window.addEventListener('mousemove', e => {
-  for (const clickable of clickables) {
+  for (const clickable of roomData[currentRoom].clickables) {
     clickable.changeOnHover(clickable.hover(e));
   }
+  redraw();
 });

@@ -26,19 +26,11 @@ class Clickable {
   }
 
   hover(e) {
-    return this.between(e.clientX - canvas.offsetLeft, this.x, this.x + this.image.width) && this.between(e.clientY - canvas.offsetTop, this.y, this.y + this.image.height);
+    return this.between((e.clientX - canvas.offsetLeft) / scale, this.x, this.x + this.image.width) && this.between((e.clientY - canvas.offsetTop) / scale, this.y, this.y + this.image.height);
   }
 
   changeOnHover(hovered) {
     this.hovered = hovered;
-    if (hovered) {
-      ctx.save();
-      ctx.filter = "drop-shadow(7px 7px 2px rgb(0, 0, 0))";
-      this.draw();
-      ctx.restore();
-    } else {
-      redraw();
-    }
   }
 
   drawText() {
@@ -46,4 +38,7 @@ class Clickable {
     ctx.fillText(this.text, 50, 500);
   }
 
+  onClick() {
+    this.drawText();
+  }
 }

@@ -31,14 +31,6 @@ class Clickable {
 
   changeOnHover(hovered) {
     this.hovered = hovered;
-    if (hovered) {
-      ctx.save();
-      ctx.filter = "drop-shadow(7px 7px 2px rgb(0, 0, 0))";
-      this.draw();
-      ctx.restore();
-    } else {
-      redraw();
-    }
   }
 
   drawText() {
@@ -46,4 +38,7 @@ class Clickable {
     ctx.fillText(this.text, 50, 500);
   }
 
+  onClick() {
+    this.drawText();
+  }
 }

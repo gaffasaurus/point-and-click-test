@@ -48,8 +48,8 @@ class Arrow extends Clickable {
       this.between(testY, y - size - padding, y + size + padding);
   }
 
-  // On click
-  drawText() {
+  onClick() {
     console.log('Go to', this.toRoom);
+    // currentRoom = this.toRoom;
   }
 }

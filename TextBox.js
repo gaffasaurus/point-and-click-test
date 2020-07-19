@@ -1,11 +1,11 @@
 class TextBox {
   constructor() {
-    this.speaker = "Chris";
+    this.speaker = "";
     this.text = "";
-    this.x = 325;
-    this.y = 420;
+    this.x = width / 3.9;
+    this.y = height / 1.4;
     this.width = 2 * (width/2 - this.x);
-    this.height = 140;
+    this.height = 130;
     this.color = "rgba(83, 186, 237, 0.9)"
 
     ctx.font = '20px sans serif';
@@ -45,15 +45,17 @@ class TextBox {
       //Draw textbox
       ctx.strokeRect(this.x, this.y, this.width, this.height);
       ctx.fillRect(this.x, this.y, this.width, this.height);
-      //Display speaker box
-      ctx.strokeRect(this.x, this.y - this.speakerHeight, this.speakerWidth, this.speakerHeight);
-      ctx.fillRect(this.x, this.y - this.speakerHeight, this.speakerWidth, this.speakerHeight);
       //set text settings
       ctx.fillStyle = 'rgb(0, 0, 0)';
       //write text
       this.wrapText(this.text, this.textX, this.textY);
-      //write speaker
-      ctx.fillText(this.speaker, this.speakerX, this.speakerY);
+      //Display speaker box if there is a speaker
+      if (this.speaker.length > 0) {
+        ctx.strokeRect(this.x, this.y - this.speakerHeight, this.speakerWidth, this.speakerHeight);
+        ctx.fillRect(this.x, this.y - this.speakerHeight, this.speakerWidth, this.speakerHeight);
+        //write speaker
+        ctx.fillText(this.speaker, this.speakerX, this.speakerY);
+      }
       ctx.restore();
     }
   }

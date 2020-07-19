@@ -10,6 +10,7 @@ function setSizeAndRedraw() {
   height = canvas.height = width / RATIO;
   scale = width / IDEAL_WIDTH;
   ctx.scale(scale, scale);
+  redraw();
 }
 window.addEventListener('resize', setSizeAndRedraw);
 
@@ -64,7 +65,6 @@ function redraw() {
   drawBackground();
   drawClickables();
 }
-redraw();
 
 // Canvas utility functions
 

@@ -4,35 +4,16 @@ const IDEAL_WIDTH = 1280;
 const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-const IDEAL_WIDTH = 1280;
-let width, height;
-function resize() {
-  width = canvas.width = document.body.clientWidth;
-  height = canvas.height = width / RATIO;
-  ctx.scale(width / IDEAL_WIDTH);
-}
-resize();
-window.addEventListener('resize', resize);
-
-async function loadRoomData() {
-=======
-=======
->>>>>>> fd1bf531410b7e1b194e737b13f3889545028d1d
 let width, height, scale;
 function setSizeAndRedraw() {
   width = canvas.width = document.body.clientWidth;
   height = canvas.height = width / RATIO;
-  // Scale canvas up/down to fit screen
   scale = width / IDEAL_WIDTH;
   ctx.scale(scale, scale);
-  redraw();
 }
 window.addEventListener('resize', setSizeAndRedraw);
 
-async function loadRoomData () {
->>>>>>> fd1bf531410b7e1b194e737b13f3889545028d1d
+async function loadRoomData() {
   // Load JSON file
   const roomData = await fetch('clickable-data.json')
     .then(response => response.json());
@@ -45,28 +26,26 @@ async function loadRoomData () {
       clickables: []
     };
     // Loop through each image thing in the room
-    for (const { image, x, y, text } of clickables) {
-      // Load the image and make a Clickable from it
-      const clickable = new Clickable(await loadImage(image), x, y, text);
-      rooms[roomId].clickables.push(clickable);
+    for (const { image, x, y, text, arrow } of clickables) {
+      if (arrow) {
+        // Make an arrow
+        const arrowClickable = new Arrow(x, y, arrow.direction, arrow.to);
+        rooms[roomId].clickables.push(arrowClickable);
+      } else {
+        // Load the image and make a Clickable from it
+        const clickable = new Clickable(await loadImage(image), x, y, text);
+        rooms[roomId].clickables.push(clickable);
+      }
     }
   }
   return rooms;
 }
 let roomData = {};
 let currentRoom;
-const arrows = [
-  new Arrow(20, IDEAL_WIDTH / RATIO / 2, 'left', 'left room'),
-  new Arrow(IDEAL_WIDTH - 20, IDEAL_WIDTH / RATIO / 2, 'right', 'right room'),
-  new Arrow(IDEAL_WIDTH / 2, 20, 'up', 'up room'),
-  new Arrow(IDEAL_WIDTH / 2, IDEAL_WIDTH / RATIO - 20, 'down', 'down room')
-];
 loadRoomData()
   .then(rooms => {
     roomData = rooms;
     currentRoom = 'main room';
-    // TEMP; maybe arrows should be specified in the JSON
-    roomData[currentRoom].clickables.push(...arrows);
     setSizeAndRedraw();
   });
 

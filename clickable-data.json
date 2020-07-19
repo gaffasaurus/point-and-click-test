@@ -13,6 +13,33 @@
         "x": 500,
         "y": 130,
         "text": "Glug"
+      },
+      {
+        "arrow": {
+          "direction": "down",
+          "to": "second room"
+        },
+        "x": 640,
+        "y": 562
+      }
+    ]
+  },
+  "second room": {
+    "bg": "images/bgimages/main room bg.png",
+    "clickables": [
+      {
+        "image": "images/fullgeff.png",
+        "x": 500,
+        "y": 130,
+        "text": "Ergonomics"
+      },
+      {
+        "arrow": {
+          "direction": "up",
+          "to": "main room"
+        },
+        "x": 640,
+        "y": 20
       }
     ]
   }

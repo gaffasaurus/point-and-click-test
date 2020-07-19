@@ -50,6 +50,6 @@ class Arrow extends Clickable {
 
   onClick() {
     console.log('Go to', this.toRoom);
-    // currentRoom = this.toRoom;
+    currentRoom = this.toRoom;
   }
 }

@@ -43,6 +43,10 @@ loadRoomData()
     for (const key in rooms) {
       bgimages.push(rooms[key].background);
       clickables.push(...rooms[key].clickables);
+      clickables.push(new Arrow(20, IDEAL_WIDTH / RATIO / 2, 'left', 'left room'));
+      clickables.push(new Arrow(IDEAL_WIDTH - 20, IDEAL_WIDTH / RATIO / 2, 'right', 'right room'));
+      clickables.push(new Arrow(IDEAL_WIDTH / 2, 20, 'up', 'up room'));
+      clickables.push(new Arrow(IDEAL_WIDTH / 2, IDEAL_WIDTH / RATIO - 20, 'down', 'down room'));
     }
     setSizeAndRedraw();
   });

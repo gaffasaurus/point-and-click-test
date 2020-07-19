@@ -5,6 +5,7 @@ const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IDEAL_WIDTH = 1280;
 let width, height;
 function resize() {
@@ -17,6 +18,8 @@ window.addEventListener('resize', resize);
 
 async function loadRoomData() {
 =======
+=======
+>>>>>>> fd1bf531410b7e1b194e737b13f3889545028d1d
 let width, height, scale;
 function setSizeAndRedraw() {
   width = canvas.width = document.body.clientWidth;

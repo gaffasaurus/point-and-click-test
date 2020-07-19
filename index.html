@@ -5,8 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Point and Click</title>
   <style>
+    html {
+      height: 100%;
+      display: flex;
+    }
 
+    html,
     body {
+      height: 100%;
+    }
+    body {
+      flex: auto;
       display: flex;
       font-family: sans-serif;
       justify-content: center;
@@ -28,6 +37,8 @@
 
     .myCanvas {
       margin: auto;
+      width: 0;
+      flex: auto;
     }
 
   </style>
@@ -39,5 +50,6 @@
   </canvas>
 </body>
 <script src="Clickable.js"></script>
+<script src="Arrow.js"></script>
 <script src="canvas.js"></script>
 <html>

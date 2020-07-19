@@ -39,6 +39,7 @@ class Clickable {
   }
 
   onClick() {
-    this.drawText();
+    textbox.setText(this.text);
+    textbox.setVisible(true);
   }
 }

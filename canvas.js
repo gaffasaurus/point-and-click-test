@@ -43,11 +43,13 @@ async function loadRoomData() {
 }
 let roomData = {};
 let currentRoom;
+let textbox;
 loadRoomData()
   .then(rooms => {
     roomData = rooms;
     currentRoom = 'main room';
     setSizeAndRedraw();
+    textbox = new TextBox();
   });
 
 //Draw background
@@ -64,6 +66,12 @@ function drawClickables() {
 function redraw() {
   drawBackground();
   drawClickables();
+  try {
+    textbox.draw();
+  }
+  catch(err) {
+    
+  }
 }
 
 // Canvas utility functions
@@ -110,10 +118,15 @@ function getPixels(image) {
 }
 
 window.addEventListener('click', e => {
+  let clickedObject = false;
   for (const clickable of roomData[currentRoom].clickables) {
     if (clickable.hover(e)) {
+      clickedObject = true;
       clickable.onClick();
     }
+  }
+  if (!clickedObject) {
+    textbox.setVisible(false);
   }
   redraw();
 });

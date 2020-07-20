@@ -1,15 +1,29 @@
 const RATIO = 2.2;
 const IDEAL_WIDTH = 1280;
+const BODY_MARGIN = 10;
 
 const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 
 let width, height, scale;
 function setSize() {
-  width = canvas.width = document.body.clientWidth;
-  height = canvas.height = width / RATIO;
-  scale = width / IDEAL_WIDTH;
-  ctx.scale(scale, scale);
+  // Get available space for the canvas
+  const widthSpace = window.innerWidth - BODY_MARGIN * 2;
+  const heightSpace = window.innerHeight - BODY_MARGIN * 2;
+  if (heightSpace * RATIO > widthSpace) {
+    // Basing the canvas width on the window height would make the canvas too
+    // wide, so make the canvas width equal to the window width
+    scale = widthSpace / IDEAL_WIDTH;
+  } else {
+    scale = heightSpace * RATIO / IDEAL_WIDTH;
+  }
+  width = scale * IDEAL_WIDTH;
+  height = scale * IDEAL_WIDTH / RATIO;
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  canvas.width = width * window.devicePixelRatio;
+  canvas.height = height * window.devicePixelRatio;
+  ctx.scale(scale * window.devicePixelRatio, scale * window.devicePixelRatio);
 }
 window.addEventListener('resize', e => {
   setSize();

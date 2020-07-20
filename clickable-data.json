@@ -3,24 +3,35 @@
     "bg": "images/bgimages/main room bg.png",
     "clickables": [
       {
+        "type": "image",
         "image": "images/fullgeff.png",
         "x": 100,
         "y": 300,
-        "text": "\"Hey man, it's me, geff. How's it going?\""
+        "action": {
+          "type": "text",
+          "text": "\"Hey man, it's me, geff. How's it going?\""
+        }
       },
       {
+        "type": "image",
         "image": "images/hatsune drink.png",
-        "x": 500,
-        "y": 130,
-        "text": "The popular Hatsune™ energy drink. This one's flavored with blue raspberry. blah blah blah blah blah blah filler filler filler oshdfoaihf iasfhoai a asiflldslfihsdlifs"
+        "x": 540,
+        "y": 220,
+        "idealHeight": 100,
+        "action": {
+          "type": "text",
+          "text": "The popular Hatsune™ energy drink. This one's flavored with blue raspberry. blah blah blah blah blah blah filler filler filler oshdfoaihf iasfhoai a asiflldslfihsdlifs"
+        }
       },
       {
-        "arrow": {
-          "direction": "down",
-          "to": "second room"
-        },
+        "type": "arrow",
+        "direction": "down",
         "x": 640,
-        "y": 562
+        "y": 562,
+        "action": {
+          "type": "room",
+          "dest": "second room"
+        }
       }
     ]
   },
@@ -28,30 +39,44 @@
     "bg": "images/bgimages/main room bg.png",
     "clickables": [
       {
+        "type": "image",
         "image": "images/fullgeff.png",
         "x": 500,
         "y": 130,
-        "text": "Ergonomics"
+        "action": {
+          "type": "text",
+          "text": "Ergonomics"
+        }
       },
       {
+        "type": "image",
         "image": "images/cello.png",
         "x": 200,
         "y": 250,
-        "text": "It's a cello."
+        "action": {
+          "type": "text",
+          "text": "It's a cello."
+        }
       },
       {
+        "type": "image",
         "image": "images/juice.png",
         "x": 580,
         "y": 190,
-        "text": "Juice!"
+        "action": {
+          "type": "text",
+          "text": "Juice!"
+        }
       },
       {
-        "arrow": {
-          "direction": "up",
-          "to": "main room"
-        },
+        "type": "arrow",
+        "direction": "up",
         "x": 980,
-        "y": 300
+        "y": 300,
+        "action": {
+          "type": "room",
+          "dest": "main room"
+        }
       }
     ]
   }

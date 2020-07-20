@@ -1,32 +1,22 @@
 class Clickable {
-  constructor(image, x, y, text) {
-    this.image = image;
+  constructor(x, y, action) {
     this.x = x;
     this.y = y;
-    this.text = text;
+    this.action = action;
     this.visible = true;
     this.hovered = false;
   }
 
   draw() {
-    ctx.save();
-    if (this.hovered) {
-      ctx.filter = "drop-shadow(7px 7px 2px rgb(0, 0, 0))";
-    }
-    ctx.drawImage(this.image, this.x, this.y);
-    ctx.restore();
+    return;
   }
 
   setVisible(b) {
     this.visible = b;
   }
 
-  between(n, lower, upper) {
-    return n >= lower && n <= upper;
-  }
-
   hover(e) {
-    return this.between((e.clientX - canvas.offsetLeft) / scale, this.x, this.x + this.image.width) && this.between((e.clientY - canvas.offsetTop) / scale, this.y, this.y + this.image.height);
+    return false;
   }
 
   changeOnHover(hovered) {
@@ -34,12 +24,25 @@ class Clickable {
   }
 
   drawText() {
-    ctx.fillStyle = "rgb(0, 0, 0)"
+    ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillText(this.text, 50, 500);
   }
 
   onClick() {
-    textbox.setText(this.text);
-    textbox.setVisible(true);
+    const { action: { type, ...action } } = this;
+    switch (type) {
+      case 'text': {
+        textbox.setText(action.text);
+        textbox.setVisible(true);
+        break;
+      }
+      case 'room': {
+        currentRoom = action.dest;
+        break;
+      }
+      default: {
+        console.warn(`${type} is not a valid action type.`);
+      }
+    }
   }
 }

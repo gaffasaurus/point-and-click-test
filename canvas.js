@@ -27,22 +27,33 @@ async function loadRoomData() {
       clickables: []
     };
     // Loop through each image thing in the room
-    for (const { image, x, y, text, arrow } of clickables) {
-      if (arrow) {
-        // Make an arrow
-        const arrowClickable = new Arrow(x, y, arrow.direction, arrow.to);
-        rooms[roomId].clickables.push(arrowClickable);
-      } else {
-        // Load the image and make a Clickable from it
-        const clickable = new Clickable(await loadImage(image), x, y, text);
-        rooms[roomId].clickables.push(clickable);
+    for (const { type, x, y, action, ...data } of clickables) {
+      switch (type) {
+        case 'image': {
+          // Load the image and make a Clickable from it
+          const clickable = new ClickableImage(await loadImage(data.image), x, y, action);
+          if (data.idealHeight) {
+            clickable.scale = data.idealHeight / clickable.image.height;
+          }
+          rooms[roomId].clickables.push(clickable);
+          break;
+        }
+        case 'arrow': {
+          // Make an arrow
+          const clickable = new Arrow(x, y, data.direction, action);
+          rooms[roomId].clickables.push(clickable);
+          break;
+        }
+        default: {
+          console.warn(`${type} is not a valid clickable type.`);
+        }
       }
     }
   }
   return rooms;
 }
 let roomData = {};
-let currentRoom;
+let currentRoom = null;
 let textbox;
 loadRoomData()
   .then(rooms => {
@@ -68,70 +79,24 @@ function redraw() {
   drawClickables();
   try {
     textbox.draw();
+  } catch (err) {
+    console.error(err);
   }
-  catch(err) {
-    
-  }
-}
-
-// Canvas utility functions
-
-/**
- * Makes an image with the given URL as a source and returns a Promise that
- * resolves to the image when it loads.
- * @example
- * loadImage('./image-url.png')
- *   .then(image => {
- *     ctx.drawImage(image, 0, 0);
- *   });
- *
- * @param {string} url
- * @return {Image}
- */
-function loadImage(url) {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.src = url;
-    image.addEventListener('load', e => {
-      resolve(image);
-    });
-    image.addEventListener('error', reject);
-  });
-}
-
-const pixelGettingCanvas = document.createElement('canvas');
-const pixelGettingContext = pixelGettingCanvas.getContext('2d');
-/**
- * Gets the pixels in an Image.
- * {@link https://developer.mozilla.org/en-US/docs/Web/API/ImageData}
- * @param {Image} image
- * @return {ImageData} This has a `data` property which is an array of integers
- * 0-255; every four integers represents the red, green, blue, and alpha
- * (transparency) channels. The pixels go in rows from left to right, top to
- * bottom.
- */
-function getPixels(image) {
-  pixelGettingCanvas.width = image.width;
-  pixelGettingCanvas.height = image.height;
-  pixelGettingContext.drawImage(image, 0, 0);
-  return pixelGettingContext.getImageData(0, 0, image.width, image.height);
 }
 
 window.addEventListener('click', e => {
-  let clickedObject = false;
+  textbox.setVisible(false);
+  if (currentRoom === null) return;
   for (const clickable of roomData[currentRoom].clickables) {
     if (clickable.hover(e)) {
-      clickedObject = true;
       clickable.onClick();
     }
-  }
-  if (!clickedObject) {
-    textbox.setVisible(false);
   }
   redraw();
 });
 
 window.addEventListener('mousemove', e => {
+  if (currentRoom === null) return;
   for (const clickable of roomData[currentRoom].clickables) {
     clickable.changeOnHover(clickable.hover(e));
   }

@@ -6,15 +6,14 @@ const directions = {
 };
 
 class Arrow extends Clickable {
-  constructor(x, y, direction, toRoom) {
+  constructor(x, y, direction, action) {
     if (!directions[direction]) {
       throw new Error(`${direction} is not a valid direction, fool!`);
     }
-    super(null, x, y);
+    super(x, y, action);
     this.direction = direction;
     this.size = 20;
     this.padding = 10;
-    this.toRoom = toRoom;
   }
 
   draw() {
@@ -44,12 +43,7 @@ class Arrow extends Clickable {
     const { offsetX = 0, offsetY = 0 } = directions[direction];
     const testX = (e.clientX - canvas.offsetLeft) / scale - offsetX * size;
     const testY = (e.clientY - canvas.offsetTop) / scale - offsetY * size;
-    return this.between(testX, x - size - padding, x + size + padding) &&
-      this.between(testY, y - size - padding, y + size + padding);
-  }
-
-  onClick() {
-    console.log('Go to', this.toRoom);
-    currentRoom = this.toRoom;
+    return between(testX, x - size - padding, x + size + padding) &&
+      between(testY, y - size - padding, y + size + padding);
   }
 }

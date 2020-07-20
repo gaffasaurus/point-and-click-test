@@ -21,6 +21,16 @@ class Inventory {
     this.textX = (this.x + this.width / 2) - (ctx.measureText(this.text).width / 2);
     this.textY = 20;
     ctx.restore();
+    //tab when not visible
+    this.tabHeight = 20;
+    this.tabText = "▲ Hover to show inventory ▲";
+    ctx.save();
+    this.tabFont = "16px sans serif"
+    ctx.font = this.tabFont;
+    this.tabTextX = (this.x + this.width / 2) - (ctx.measureText(this.tabText).width / 2);
+    this.tabTextY = 14;
+    ctx.restore();
+    //important attributes
     this.visible = false;
     this.items = [];
   }
@@ -60,6 +70,17 @@ class Inventory {
         // TODO draw items
       }
       ctx.restore();
+    } else {
+      ctx.save();
+      ctx.strokeStyle = "rgb(0, 0, 0)";
+      ctx.lineWidth = 3;
+      ctx.fillStyle = this.bgColor;
+      ctx.font = this.tabFont;
+      ctx.strokeRect(this.x, this.y, this.width, this.tabHeight);
+      ctx.fillRect(this.x, this.y, this.width, this.tabHeight);
+      ctx.fillStyle = "rgb(0, 0, 0)";
+      ctx.fillText(this.tabText, this.tabTextX, this.tabTextY);
+      ctx.restore();
     }
   }
 
@@ -67,7 +88,7 @@ class Inventory {
     const testX = (e.clientX - canvas.offsetLeft) / scale;
     const testY = (e.clientY - canvas.offsetTop) / scale;
     if (!this.visible) {
-      return between(testX, this.x, this.x + this.width) && between(testY, this.y, this.y + 30);
+      return between(testX, this.x, this.x + this.width) && between(testY, this.y, this.y + this.tabHeight);
     } else {
       return between(testX, this.x, this.x + this.width) && between(testY, this.y, this.y + this.height);
     }

@@ -19,8 +19,8 @@
         "y": 220,
         "idealHeight": 100,
         "action": {
-          "type": "text",
-          "text": "The popular Hatsune™ energy drink. This one's flavored with blue raspberry. blah blah blah blah blah blah filler filler filler oshdfoaihf iasfhoai a asiflldslfihsdlifs"
+          "type": "room",
+          "dest": "second room"
         }
       },
       {
@@ -30,7 +30,7 @@
         "y": 562,
         "action": {
           "type": "room",
-          "dest": "second room"
+          "dest": "third room"
         }
       }
     ]
@@ -76,6 +76,31 @@
         "action": {
           "type": "room",
           "dest": "main room"
+        }
+      }
+    ]
+  },
+  "third room": {
+    "bg": "images/bgimages/room3 bg.png",
+    "clickables": [
+      {
+        "type": "image",
+        "image": "images/room3 door.png",
+        "x": 10,
+        "y": 30,
+        "action": {
+          "type": "room",
+          "dest": "main room"
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/cello.png",
+        "x": 500,
+        "y": 200,
+        "action": {
+          "type": "text",
+          "text": "It's a cello."
         }
       }
     ]

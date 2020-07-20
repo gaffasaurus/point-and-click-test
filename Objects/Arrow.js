@@ -17,6 +17,8 @@ class Arrow extends Clickable {
   }
 
   draw() {
+    if (!this.visible) return;
+
     const { x, y, direction, size } = this;
     ctx.save();
     if (!this.hovered) {

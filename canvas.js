@@ -5,14 +5,16 @@ const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 
 let width, height, scale;
-function setSizeAndRedraw() {
+function setSize() {
   width = canvas.width = document.body.clientWidth;
   height = canvas.height = width / RATIO;
   scale = width / IDEAL_WIDTH;
   ctx.scale(scale, scale);
-  redraw();
 }
-window.addEventListener('resize', setSizeAndRedraw);
+window.addEventListener('resize', e => {
+  setSize();
+  redraw();
+});
 
 async function loadRoomData() {
   // Load JSON file
@@ -55,12 +57,15 @@ async function loadRoomData() {
 let roomData = {};
 let currentRoom = null;
 let textbox;
+let inventory;
 loadRoomData()
   .then(rooms => {
     roomData = rooms;
     currentRoom = 'main room';
-    setSizeAndRedraw();
+    setSize();
     textbox = new TextBox();
+    inventory = new Inventory();
+    redraw();
   });
 
 //Draw background
@@ -82,23 +87,41 @@ function redraw() {
   } catch (err) {
     console.error(err);
   }
+  try {
+    inventory.draw();
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-window.addEventListener('click', e => {
-  textbox.setVisible(false);
-  if (currentRoom === null) return;
+function checkClickablesClicked(e) {
   for (const clickable of roomData[currentRoom].clickables) {
     if (clickable.hover(e)) {
       clickable.onClick();
     }
   }
+}
+
+function checkClickablesHovered(e) {
+  for (const clickable of roomData[currentRoom].clickables) {
+    clickable.changeOnHover(clickable.hover(e));
+  }
+}
+
+function checkShowInventory(e) {
+  inventory.setVisible(inventory.hover(e));
+}
+
+window.addEventListener('click', e => {
+  textbox.setVisible(false);
+  if (currentRoom === null) return;
+  checkClickablesClicked(e);
   redraw();
 });
 
 window.addEventListener('mousemove', e => {
   if (currentRoom === null) return;
-  for (const clickable of roomData[currentRoom].clickables) {
-    clickable.changeOnHover(clickable.hover(e));
-  }
+  checkClickablesHovered(e);
+  checkShowInventory(e);
   redraw();
 });

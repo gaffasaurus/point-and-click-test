@@ -34,6 +34,12 @@
         "text": "Ergonomics"
       },
       {
+        "image": "images/cello.png",
+        "x": 200,
+        "y": 250,
+        "text": "It's a cello."
+      },
+      {
         "arrow": {
           "direction": "up",
           "to": "main room"

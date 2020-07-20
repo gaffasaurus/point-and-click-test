@@ -2,23 +2,22 @@ class TextBox {
   constructor() {
     this.speaker = "";
     this.text = "";
-    this.x = width / 3.9;
-    this.y = height / 1.4;
-    this.width = 2 * (width/2 - this.x);
-    this.height = 130;
+    this.x = IDEAL_WIDTH / 3.9;
+    this.y = IDEAL_WIDTH / RATIO / 1.4;
+    this.width = 2 * (IDEAL_WIDTH/2 - this.x);
+    this.height = IDEAL_WIDTH / RATIO / 5.5;
     this.color = "rgba(83, 186, 237, 0.9)"
 
-    ctx.font = '20px sans serif';
-    this.speakerXPadding = 20;
+    this.speakerXPadding = this.height / 6.5;
     this.speakerWidth = ctx.measureText(this.speaker).width + this.speakerXPadding;
     this.speakerHeight = this.height/ 4.0;
     this.speakerX = this.x + this.speakerXPadding / 2; //centers speaker text
     this.speakerY = (this.y - this.speakerHeight) + this.speakerHeight / 1.6;
 
-    this.textXPadding = 20;
+    this.textXPadding = IDEAL_WIDTH / 64.0;
     this.textX = this.x + this.textXPadding;
     this.textY = this.y + this.height / 4;
-    this.textYSpacing = 25;
+    this.textYSpacing = this.height / 5.2;
     this.visible = false;
   }
 
@@ -40,6 +39,7 @@ class TextBox {
   draw() {
     if (this.visible) {
       ctx.save();
+      ctx.font = '20px sans serif';
       ctx.fillStyle = this.color;
       ctx.strokeStyle = 'rgb(0, 0, 0)';
       //Draw textbox

@@ -1,18 +1,20 @@
 class Inventory {
   constructor() {
-    this.x = 225;
+    this.x = IDEAL_WIDTH / 5.68;
     this.y = 0;
-    this.width = 2 * (width/2 - this.x); //centers
-    this.height = 110;
+    // this.width = 2 * (IDEAL_WIDTH / 2 - this.x); //centers // See below
+    // this.height = IDEAL_WIDTH / RATIO / 6; // See below
     this.bgColor = "rgb(192, 192, 192)";
     //boxes
     this.maxSlots = 10;
     this.boxSize = 50; //side lengths of squares
-    this.boxSpacing = 25;
+    this.boxSpacing = this.boxSize / 2;
     this.boxesWidth = this.maxSlots * (this.boxSize + this.boxSpacing) - this.boxSpacing; //width of all slots
-    this.boxXOffset = this.x + (this.width / 2 - this.boxesWidth / 2);
-    this.boxYOffset = 40;
+    this.boxYOffset = 35;
     this.boxColor = "rgb(128, 128, 128)";
+    this.width = this.maxSlots * (this.boxSize + this.boxSpacing) + this.boxSpacing;
+    this.height = this.boxYOffset + this.boxSize + this.boxSpacing;
+    this.boxXOffset = this.x + (this.width / 2 - this.boxesWidth / 2);
     //text
     this.text = "Inventory:";
     this.font = "20px sans serif";

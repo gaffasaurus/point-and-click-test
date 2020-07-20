@@ -7,6 +7,8 @@ class ClickableImage extends Clickable {
   }
 
   draw() {
+    if (!this.visible) return;
+
     ctx.save();
     if (this.hovered) {
       ctx.filter = "drop-shadow(7px 7px 2px rgb(0, 0, 0))";

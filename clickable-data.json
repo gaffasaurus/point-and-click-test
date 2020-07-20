@@ -40,6 +40,12 @@
         "text": "It's a cello."
       },
       {
+        "image": "images/juice.png",
+        "x": 580,
+        "y": 190,
+        "text": "Juice!"
+      },
+      {
         "arrow": {
           "direction": "up",
           "to": "main room"

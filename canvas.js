@@ -32,6 +32,9 @@ async function loadRoomData() {
         case 'image': {
           // Load the image and make a Clickable from it
           const clickable = new ClickableImage(await loadImage(data.image), x, y, action);
+          if (data.idealHeight) {
+            clickable.scale = data.idealHeight / clickable.image.height;
+          }
           rooms[roomId].clickables.push(clickable);
           break;
         }
@@ -82,16 +85,12 @@ function redraw() {
 }
 
 window.addEventListener('click', e => {
+  textbox.setVisible(false);
   if (currentRoom === null) return;
-  let clickedObject = false;
   for (const clickable of roomData[currentRoom].clickables) {
     if (clickable.hover(e)) {
-      clickedObject = true;
       clickable.onClick();
     }
-  }
-  if (!clickedObject) {
-    textbox.setVisible(false);
   }
   redraw();
 });

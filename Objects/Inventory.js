@@ -78,6 +78,7 @@ class Inventory {
         const item = this.items[i];
         const { x, y } = this.getBoxPosition(i);
         // TODO draw items
+        ctx.drawImage(item.image, x, interpolate(-this.boxSize - 3, y, state), this.boxSize, this.boxSize);
       }
     }
     if (state < 1) {

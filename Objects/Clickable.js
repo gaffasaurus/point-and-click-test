@@ -40,6 +40,16 @@ class Clickable {
         currentRoom = action.dest;
         break;
       }
+      case 'item': {
+        const icon = new Image();
+        icon.src = action.image;
+        textbox.setText(action.text);
+        textbox.setVisible(true);
+        inventory.addItem(new Item(icon, action.name, action.id));
+        const clickables = roomData[currentRoom].clickables;
+        clickables.splice(clickables.indexOf(this), 1);
+        break;
+      }
       default: {
         console.warn(`${type} is not a valid action type.`);
       }

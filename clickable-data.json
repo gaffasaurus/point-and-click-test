@@ -32,6 +32,19 @@
           "type": "room",
           "dest": "third room"
         }
+      },
+      {
+        "type": "image",
+        "image": "images/key.png",
+        "x": 650,
+        "y": 260,
+        "action": {
+          "type": "item",
+          "text": "Key added to inventory",
+          "image": "images/keyIcon.png",
+          "name": "Key",
+          "id": "door1Key"
+        }
       }
     ]
   },

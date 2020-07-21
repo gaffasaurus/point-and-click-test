@@ -51,6 +51,7 @@ class Inventory {
   }
 
   draw() {
+    // Using an easing function makes it look nice, the animation
     const state = easeInOutCubic(this.progress);
     ctx.save();
     ctx.strokeStyle = "rgb(0, 0, 0)";
@@ -83,7 +84,7 @@ class Inventory {
       ctx.globalAlpha = interpolate(1, 0, state);
       ctx.font = this.tabFont;
       ctx.fillStyle = "rgb(0, 0, 0)";
-      ctx.fillText(this.tabText, this.tabTextX, interpolate(this.tabTextY, this.tabTextY + this.boxYOffset + this.boxSize, state));
+      ctx.fillText(this.tabText, this.tabTextX, this.tabTextY + interpolate(0, this.height - this.tabHeight, state));
     }
     ctx.restore();
   }
@@ -103,9 +104,11 @@ class Inventory {
       if (this.animating) {
         this.animating.stop();
       }
-      const start = Date.now();
       const duration = 500;
-      // CSS animations are a lot easier eeee
+      const start = this.animating
+        ? 2 * Date.now() - this.animating.start - duration
+        : Date.now();
+      // Why do animations in JS have to be sooo complicated
       this.animating = animManager.animate(() => {
         this.progress = (Date.now() - start) / duration;
         if (b) {
@@ -124,6 +127,7 @@ class Inventory {
           }
         }
       });
+      this.animating.start = start;
     }
     this.visible = b;
   }

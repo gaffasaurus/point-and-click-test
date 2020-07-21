@@ -67,8 +67,8 @@
         "x": 200,
         "y": 250,
         "action": {
-          "type": "text",
-          "text": ["It's a cello."]
+          "type": "audio",
+          "file": "audio/prokofiev cello.mp3"
         }
       },
       {

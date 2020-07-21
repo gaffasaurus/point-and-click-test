@@ -51,6 +51,16 @@ class Clickable {
         clickables.splice(clickables.indexOf(this), 1);
         break;
       }
+      case 'audio': {
+        const audio = new Audio(action.file);
+        if (audio.paused) {
+          audio.currentTime = 0;
+          audio.play();
+        } else {
+          audio.pause();
+        }
+        break;
+      }
       default: {
         console.warn(`${type} is not a valid action type.`);
       }

@@ -4,7 +4,7 @@ class Inventory {
     this.y = 0;
     // this.width = 2 * (IDEAL_WIDTH / 2 - this.x); //centers // See below
     // this.height = IDEAL_WIDTH / RATIO / 6; // See below
-    this.bgColor = "rgba(192, 192, 192, 0.95)";
+    this.bgColor = "rgba(192, 192, 192, 0.9)";
     //boxes
     this.maxSlots = 10;
     this.boxSize = 50; //side lengths of squares

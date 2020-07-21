@@ -11,7 +11,7 @@ class Inventory {
     this.boxSpacing = this.boxSize / 2;
     this.boxesWidth = this.maxSlots * (this.boxSize + this.boxSpacing) - this.boxSpacing; //width of all slots
     this.boxYOffset = 35;
-    this.boxColor = "rgb(128, 128, 128)";
+    this.boxColor = "rgb(150, 150, 150)";
     this.width = this.maxSlots * (this.boxSize + this.boxSpacing) + this.boxSpacing;
     this.height = this.boxYOffset + this.boxSize + this.boxSpacing;
     this.boxXOffset = this.x + (this.width / 2 - this.boxesWidth / 2);

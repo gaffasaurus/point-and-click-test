@@ -1,7 +1,8 @@
 class TextBox {
   constructor() {
     this.speaker = "";
-    this.text = "";
+    this.text = ["hello"];
+    this.textCounter = -1;
     this.x = IDEAL_WIDTH / 3.9;
     this.y = IDEAL_WIDTH / RATIO / 1.4;
     this.width = 2 * (IDEAL_WIDTH/2 - this.x);
@@ -16,7 +17,7 @@ class TextBox {
 
     this.textXPadding = IDEAL_WIDTH / 64.0;
     this.textX = this.x + this.textXPadding;
-    this.textY = this.y + this.height / 4;
+    this.textY = this.y + this.height / 3.5;
     this.textYSpacing = this.height / 5.2;
     this.visible = false;
   }
@@ -48,7 +49,8 @@ class TextBox {
       //set text settings
       ctx.fillStyle = 'rgb(0, 0, 0)';
       //write text
-      this.wrapText(this.text, this.textX, this.textY);
+      console.log(this.text + ", " + this.textCounter + ", " + this.text[this.textCounter]);
+      this.wrapText(this.text[this.textCounter], this.textX, this.textY);
       //Display speaker box if there is a speaker
       if (this.speaker.length > 0) {
         ctx.strokeRect(this.x, this.y - this.speakerHeight, this.speakerWidth, this.speakerHeight);
@@ -66,6 +68,18 @@ class TextBox {
 
   setText(text) {
     this.text = text;
+  }
+
+  resetTextCounter() {
+    this.textCounter = -1;
+  }
+
+  setTextCounter(counter) {
+    this.textCounter = counter;
+  }
+
+  incrementCounter() {
+    this.textCounter += 1;
   }
 
   setVisible(b) {

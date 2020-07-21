@@ -9,7 +9,7 @@
         "y": 300,
         "action": {
           "type": "text",
-          "text": "\"Hey man, it's me, geff. How's it going?\""
+          "text": ["\"Hey man, it's me, geff. How's it going?\""]
         }
       },
       {
@@ -40,7 +40,7 @@
         "y": 260,
         "action": {
           "type": "item",
-          "text": "Key added to inventory",
+          "text": ["It's a skeleton key. Looks perfect for unlocking that can of Hatsune™ over there.", "(Key added to inventory.)"],
           "image": "images/keyIcon.png",
           "name": "Key",
           "id": "door1Key"
@@ -58,7 +58,7 @@
         "y": 130,
         "action": {
           "type": "text",
-          "text": "Ergonomics"
+          "text": ["Ergonomics"]
         }
       },
       {
@@ -68,7 +68,7 @@
         "y": 250,
         "action": {
           "type": "text",
-          "text": "It's a cello."
+          "text": ["It's a cello."]
         }
       },
       {
@@ -78,7 +78,7 @@
         "y": 190,
         "action": {
           "type": "text",
-          "text": "Juice!"
+          "text": ["Juice!"]
         }
       },
       {
@@ -113,7 +113,7 @@
         "y": 200,
         "action": {
           "type": "text",
-          "text": "It's a cello."
+          "text": ["It's a cello.", "I used to be able to play back in the day, but I haven't touched one in ages."]
         }
       }
     ]

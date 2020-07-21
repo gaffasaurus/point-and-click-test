@@ -112,10 +112,22 @@ function redraw() {
   }
 }
 
+
+function manageTextBox(e) {
+  if (textbox.visible) {
+    textbox.incrementCounter();
+  }
+  if (textbox.textCounter >= textbox.text.length) {
+    textbox.resetTextCounter();
+    textbox.setVisible(false);
+  }
+}
+
 function checkClickablesClicked(e) {
   for (const clickable of roomData[currentRoom].clickables) {
     if (clickable.hover(e)) {
       clickable.onClick();
+      textbox.resetTextCounter();
     }
   }
 }
@@ -131,13 +143,14 @@ function checkShowInventory(e) {
 }
 
 window.addEventListener('click', e => {
-  textbox.setVisible(false);
   if (currentRoom === null) return;
   checkClickablesClicked(e);
+  manageTextBox(e);
   redraw();
 });
 
 window.addEventListener('mousemove', e => {
+  // console.log(textbox.text[textbox.textCounter]);
   if (currentRoom === null) return;
   checkClickablesHovered(e);
   checkShowInventory(e);

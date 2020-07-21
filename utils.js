@@ -2,6 +2,17 @@ function between(n, lower, upper) {
   return n >= lower && n <= upper;
 }
 
+function interpolate(from, to, progress) {
+  return (to - from) * progress + from;
+}
+
+function easeInOutCubic(t) {
+  t *= 2;
+  if (t < 1) return t * t * t / 2;
+  t -= 2;
+  return (t * t * t + 2) / 2;
+}
+
 // Canvas utility functions
 
 /**

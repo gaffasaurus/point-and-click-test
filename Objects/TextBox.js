@@ -5,8 +5,8 @@ class TextBox {
     this.x = IDEAL_WIDTH / 3.9;
     this.y = IDEAL_WIDTH / RATIO / 1.4;
     this.width = 2 * (IDEAL_WIDTH/2 - this.x);
-    this.height = IDEAL_WIDTH / RATIO / 5.5;
-    this.color = "rgba(83, 186, 237, 0.9)"
+    this.height = IDEAL_WIDTH / RATIO / 4.5;
+    this.color = "rgba(83, 186, 237, 0.9)";
 
     this.speakerXPadding = this.height / 6.5;
     this.speakerWidth = ctx.measureText(this.speaker).width + this.speakerXPadding;

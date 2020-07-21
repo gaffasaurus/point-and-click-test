@@ -4,7 +4,7 @@ class Inventory {
     this.y = 0;
     // this.width = 2 * (IDEAL_WIDTH / 2 - this.x); //centers // See below
     // this.height = IDEAL_WIDTH / RATIO / 6; // See below
-    this.bgColor = "rgb(192, 192, 192)";
+    this.bgColor = "rgba(192, 192, 192, 0.95)";
     //boxes
     this.maxSlots = 10;
     this.boxSize = 50; //side lengths of squares
@@ -17,7 +17,7 @@ class Inventory {
     this.boxXOffset = this.x + (this.width / 2 - this.boxesWidth / 2);
     //text
     this.text = "Inventory:";
-    this.font = "20px sans serif";
+    this.font = "20px sans-serif";
     this.fontSize = 20;
     ctx.save();
     ctx.font = this.font;
@@ -28,7 +28,7 @@ class Inventory {
     this.tabHeight = 20;
     this.tabText = "▲ Hover to show inventory ▲";
     ctx.save();
-    this.tabFont = "16px sans serif"
+    this.tabFont = "16px sans-serif"
     this.tabFontSize = 16;
     ctx.font = this.tabFont;
     this.tabTextX = (this.x + this.width / 2) - (ctx.measureText(this.tabText).width / 2);

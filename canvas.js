@@ -30,6 +30,10 @@ window.addEventListener('resize', e => {
   redraw();
 });
 
+let animManager = new AnimationManager({
+  afterEach: redraw
+});
+
 async function loadRoomData() {
   // Load JSON file
   const roomData = await fetch('clickable-data.json')

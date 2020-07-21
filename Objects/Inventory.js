@@ -18,6 +18,7 @@ class Inventory {
     //text
     this.text = "Inventory:";
     this.font = "20px sans serif";
+    this.fontSize = 20;
     ctx.save();
     ctx.font = this.font;
     this.textX = (this.x + this.width / 2) - (ctx.measureText(this.text).width / 2);
@@ -28,6 +29,7 @@ class Inventory {
     this.tabText = "▲ Hover to show inventory ▲";
     ctx.save();
     this.tabFont = "16px sans serif"
+    this.tabFontSize = 16;
     ctx.font = this.tabFont;
     this.tabTextX = (this.x + this.width / 2) - (ctx.measureText(this.tabText).width / 2);
     this.tabTextY = 14;
@@ -35,6 +37,9 @@ class Inventory {
     //important attributes
     this.visible = false;
     this.items = [];
+
+    this.animating = false;
+    this.progress = 0;
   }
 
   // Utility method that gets the top-left corner of the box given its index
@@ -46,24 +51,27 @@ class Inventory {
   }
 
   draw() {
-    if (this.visible) {
-      ctx.save();
-      ctx.strokeStyle = "rgb(0, 0, 0)";
-      ctx.lineWidth = 3;
-      ctx.fillStyle = this.bgColor;
+    // Using an easing function makes it look nice, the animation
+    const state = easeInOutCubic(this.progress);
+    ctx.save();
+    ctx.strokeStyle = "rgb(0, 0, 0)";
+    ctx.lineWidth = 3;
+    ctx.fillStyle = this.bgColor;
+    //draw outside rectangle
+    const rectHeight = interpolate(this.tabHeight, this.height, state);
+    ctx.strokeRect(this.x, this.y, this.width, rectHeight);
+    ctx.fillRect(this.x, this.y, this.width, rectHeight);
+    if (state > 0) {
       ctx.font = this.font;
-      //draw outside rectangle
-      ctx.strokeRect(this.x, this.y, this.width, this.height);
-      ctx.fillRect(this.x, this.y, this.width, this.height);
       //draw text
       ctx.fillStyle = "rgb(0, 0, 0)";
-      ctx.fillText(this.text, this.textX, this.textY);
+      ctx.fillText(this.text, this.textX, interpolate(-this.fontSize, this.textY, state));
       //draw empty boxes
       for (let i = 0; i < this.maxSlots; i++) {
         const { x, y } = this.getBoxPosition(i);
         ctx.fillStyle = this.boxColor;
-        ctx.strokeRect(x, y, this.boxSize, this.boxSize);
-        ctx.fillRect(x, y, this.boxSize, this.boxSize);
+        ctx.strokeRect(x, interpolate(-this.boxSize - 3, y, state), this.boxSize, this.boxSize);
+        ctx.fillRect(x, interpolate(-this.boxSize - 3, y, state), this.boxSize, this.boxSize);
       }
       //draw items
       for (let i = 0; i < this.items.length; i++) {
@@ -71,19 +79,14 @@ class Inventory {
         const { x, y } = this.getBoxPosition(i);
         // TODO draw items
       }
-      ctx.restore();
-    } else {
-      ctx.save();
-      ctx.strokeStyle = "rgb(0, 0, 0)";
-      ctx.lineWidth = 3;
-      ctx.fillStyle = this.bgColor;
-      ctx.font = this.tabFont;
-      ctx.strokeRect(this.x, this.y, this.width, this.tabHeight);
-      ctx.fillRect(this.x, this.y, this.width, this.tabHeight);
-      ctx.fillStyle = "rgb(0, 0, 0)";
-      ctx.fillText(this.tabText, this.tabTextX, this.tabTextY);
-      ctx.restore();
     }
+    if (state < 1) {
+      ctx.globalAlpha = interpolate(1, 0, state);
+      ctx.font = this.tabFont;
+      ctx.fillStyle = "rgb(0, 0, 0)";
+      ctx.fillText(this.tabText, this.tabTextX, this.tabTextY + interpolate(0, this.height - this.tabHeight, state));
+    }
+    ctx.restore();
   }
 
   hover(e) {
@@ -97,6 +100,35 @@ class Inventory {
   }
 
   setVisible(b) {
+    if (this.visible !== b) {
+      if (this.animating) {
+        this.animating.stop();
+      }
+      const duration = 500;
+      const start = this.animating
+        ? 2 * Date.now() - this.animating.start - duration
+        : Date.now();
+      // Why do animations in JS have to be sooo complicated
+      this.animating = animManager.animate(() => {
+        this.progress = (Date.now() - start) / duration;
+        if (b) {
+          if (this.progress >= 1) {
+            this.progress = 1;
+            this.animating.stop();
+            this.animating = null;
+          }
+        } else {
+          // It goes the other direction as it hides
+          this.progress = 1 - this.progress;
+          if (this.progress <= 0) {
+            this.progress = 0;
+            this.animating.stop();
+            this.animating = null;
+          }
+        }
+      });
+      this.animating.start = start;
+    }
     this.visible = b;
   }
 

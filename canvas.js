@@ -34,6 +34,35 @@ let animManager = new AnimationManager({
   afterEach: redraw
 });
 
+const images = {};
+async function loadImageAsNeeded (url) {
+  if (!images[url]) {
+    images[url] = await loadImage(url);
+  }
+  return images[url];
+}
+
+function clickableFromJson ({ type, x, y, action, ...data }) {
+  switch (type) {
+    case 'image': {
+      // Load the image and make a Clickable from it
+      const clickable = new ClickableImage(images[data.image], x, y, action);
+      if (data.idealHeight) {
+        clickable.scale = data.idealHeight / clickable.image.height;
+      }
+      return clickable;
+    }
+    case 'arrow': {
+      // Make an arrow
+      const clickable = new Arrow(x, y, data.direction, action);
+      return clickable;
+    }
+    default: {
+      throw new Error(`${type} is not a valid clickable type.`);
+    }
+  }
+}
+
 async function loadRoomData() {
   // Load JSON file
   const roomData = await fetch('clickable-data.json')
@@ -43,31 +72,21 @@ async function loadRoomData() {
   // Loop through each room in the JSON
   for (const [roomId, { bg, clickables }] of Object.entries(roomData)) {
     rooms[roomId] = {
-      background: await loadImage(bg),
+      background: await loadImageAsNeeded(bg),
       clickables: []
     };
     // Loop through each image thing in the room
-    for (const { type, x, y, action, ...data } of clickables) {
-      switch (type) {
-        case 'image': {
-          // Load the image and make a Clickable from it
-          const clickable = new ClickableImage(await loadImage(data.image), x, y, action);
-          if (data.idealHeight) {
-            clickable.scale = data.idealHeight / clickable.image.height;
-          }
-          rooms[roomId].clickables.push(clickable);
-          break;
-        }
-        case 'arrow': {
-          // Make an arrow
-          const clickable = new Arrow(x, y, data.direction, action);
-          rooms[roomId].clickables.push(clickable);
-          break;
-        }
-        default: {
-          console.warn(`${type} is not a valid clickable type.`);
+    for (const clickable of clickables) {
+      if (clickable.image) await loadImageAsNeeded(clickable.image);
+      if (clickable.preload) {
+        // `preload` shall be an array of image URLs to load before starting
+        // (for example, because they're used later on, such as after being
+        // unlocked).
+        for (const preloadImageUrl of clickable.preload) {
+          await loadImageAsNeeded(preloadImageUrl);
         }
       }
+      rooms[roomId].clickables.push(clickableFromJson(clickable));
     }
   }
   return rooms;
@@ -128,6 +147,7 @@ function checkClickablesClicked(e) {
     if (clickable.hover(e)) {
       clickable.onClick();
       textbox.resetTextCounter();
+      break; // Do not attempt to click any other clickables
     }
   }
 }

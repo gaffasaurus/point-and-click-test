@@ -89,6 +89,9 @@ class Inventory {
           this.drawSelectedOutline({ x, y });
         }
         ctx.drawImage(item.image, x, y, this.boxSize, this.boxSize);
+        if (this.selected.length > 0) {
+          this.drawItemDescription(this.selected[0].name);
+        }
       }
     }
     if (state < 1) {
@@ -99,9 +102,6 @@ class Inventory {
     }
     if (this.visible) {
       this.displayItemText();
-    }
-    if (this.selected.length > 0) {
-      this.drawItemDescription(this.selected[0].name);
     }
     ctx.restore();
   }
@@ -138,9 +138,6 @@ class Inventory {
     const descY = this.height + yPadding;
     const descBoxX = descX - xPadding;
     const descBoxY = this.height + 1.5;
-
-    console.log(descX, descBoxX);
-
     const descBoxWidth = 2 * (this.width / 2.0 - descBoxX + this.x);
     const descBoxHeight = 25;
     const state = easeInOutCubic(this.progress);
@@ -196,7 +193,6 @@ class Inventory {
           break;
         }
       }
-      console.log(this.selected);
     }
   }
 

@@ -45,9 +45,25 @@ class Clickable {
         icon.src = action.image;
         textbox.setText(action.text);
         textbox.setVisible(true);
-        inventory.addItem(new Item(icon, action.name, action.id));
+        inventory.addItem(new Item(icon, action.name, action.id, action.reusable));
         const clickables = roomData[currentRoom].clickables;
         clickables.splice(clickables.indexOf(this), 1);
+        break;
+      }
+      case 'locked': {
+        if (inventory.selected.length > 0 && inventory.selected[0].id === action.key) {
+          const selected = inventory.selected[0];
+          textbox.setText(action.unlockText);
+          textbox.setVisible(true);
+          if (!action.reusable) {
+            removeFromArray(inventory.items, selected);
+          }
+          const clickables = roomData[currentRoom].clickables;
+          replaceInArray(clickables, this, clickableFromJson(action.unlocked));
+        } else {
+          textbox.setText(action.text);
+          textbox.setVisible(true);
+        }
         break;
       }
       case 'audio': {

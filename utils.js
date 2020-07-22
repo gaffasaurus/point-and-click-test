@@ -2,6 +2,21 @@ function between(n, lower, upper) {
   return n >= lower && n <= upper;
 }
 
+function removeFromArray(arr, element) {
+  const ix = arr.indexOf(element);
+  if (ix >= 0) {
+    arr.splice(ix, 1);
+  }
+}
+
+function replaceInArray(arr, old, ...newItems) {
+  const ix = arr.indexOf(old);
+  if (ix >= 0) {
+    arr.splice(ix, 1, ...newItems);
+  }
+  // If `old`'s not in the array for some reason, it won't add `newItems`
+}
+
 function interpolate(from, to, progress) {
   return (to - from) * progress + from;
 }

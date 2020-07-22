@@ -18,9 +18,23 @@
         "x": 540,
         "y": 220,
         "idealHeight": 100,
+        "preload": ["images/hatsune drink.png"],
         "action": {
-          "type": "room",
-          "dest": "second room"
+          "type": "locked",
+          "key": "drinkKey",
+          "text": ["This can leads to another room, but it's locked. There should be a key somewhere I can use to unlock it."],
+          "unlockText": ["The can opens with a click."],
+          "unlocked": {
+            "type": "image",
+            "image": "images/hatsune drink.png",
+            "x": 540,
+            "y": 220,
+            "idealHeight": 100,
+            "action": {
+              "type": "room",
+              "dest": "second room"
+            }
+          }
         }
       },
       {
@@ -34,6 +48,16 @@
         }
       },
       {
+        "type": "arrow",
+        "direction": "up",
+        "x": 980,
+        "y": 300,
+        "action": {
+          "type": "room",
+          "dest": "second room"
+        }
+      },
+      {
         "type": "image",
         "image": "images/key.png",
         "x": 650,
@@ -43,7 +67,8 @@
           "text": ["It's a skeleton key. Looks perfect for unlocking that can of Hatsune™ over there.", "(Key added to inventory.)"],
           "image": "images/keyIcon.png",
           "name": "Key",
-          "id": "door1Key"
+          "id": "drinkKey",
+          "reusable": true
         }
       }
     ]

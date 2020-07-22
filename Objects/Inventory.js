@@ -85,10 +85,10 @@ class Inventory {
       for (let i = 0; i < this.items.length; i++) {
         const item = this.items[i];
         const { x, y } = this.getBoxPosition(i);
-        ctx.drawImage(item.image, x, y, this.boxSize, this.boxSize);
         if (this.selected[0] === item) {
           this.drawSelectedOutline({ x, y });
         }
+        ctx.drawImage(item.image, x, y, this.boxSize, this.boxSize);
       }
     }
     if (state < 1) {
@@ -163,9 +163,24 @@ class Inventory {
 
   selectItem() {
     if (this.items[this.boxNum]) {
-      const boxPos = this.getBoxPosition(this.boxNum);
-      this.drawSelectedOutline(boxPos);
-      this.selected.splice(0, 1, this.items[this.boxNum]);
+      // const boxPos = this.getBoxPosition(this.boxNum);
+      // if (this.selected[0] === this.items[this.boxNum]) {
+      //   this.drawSelectedOutline(boxPos);
+      // }
+      switch(this.selected.length) {
+        case 0: {
+          this.selected.push(this.items[this.boxNum]);
+          break;
+        }
+        case 1: {
+          if (this.items[this.boxNum] !== this.selected[0]) {
+            this.selected.push(this.items)
+          } else {
+            this.selected.pop();
+          }
+          break;
+        }
+      }
       console.log(this.selected);
     }
   }

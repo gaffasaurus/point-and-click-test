@@ -100,6 +100,9 @@ class Inventory {
     if (this.visible) {
       this.displayItemText();
     }
+    if (this.selected.length > 0) {
+      this.drawItemDescription(this.selected[0].name);
+    }
     ctx.restore();
   }
 
@@ -126,10 +129,32 @@ class Inventory {
     this.boxNum = -1;
   }
 
+  drawItemDescription(itemName) {
+    ctx.save();
+    ctx.font = this.descFont;
+    const xPadding = 30;
+    const yPadding = 18;
+    const descX = this.x + this.width / 2.0 - ctx.measureText(itemName).width / 2.0;
+    const descY = this.height + yPadding;
+    const descBoxX = descX - xPadding;
+    const descBoxY = this.height + 1.5;
+
+    console.log(descX, descBoxX);
+
+    const descBoxWidth = 2 * (this.width / 2.0 - descBoxX + this.x);
+    const descBoxHeight = 25;
+    const state = easeInOutCubic(this.progress);
+    ctx.fillStyle = this.bgColor;
+    ctx.strokeStyle = "rgb(0, 0, 0)";
+    ctx.strokeRect(descBoxX, interpolate(-this.boxSize - 3, descBoxY, state), descBoxWidth, descBoxHeight);
+    ctx.fillRect(descBoxX, interpolate(-this.boxSize - 3, descBoxY, state), descBoxWidth, descBoxHeight);
+    ctx.fillStyle = "rgb(0, 0, 0)";
+    ctx.fillText(itemName, descX, interpolate(-this.boxSize - 3, descY, state));
+    ctx.restore();
+  }
+
   displayItemText() {
-    if (this.boxNum >= 0) {
-      ctx.save();
-      ctx.font = this.descFont;
+    if (this.boxNum >= 0 && this.selected.length == 0) {
       // ctx.strokeStyle = "rgb(0, 0, 0)";
       // ctx.fillStyle = this.itemTagColor;
       const item = this.items[this.boxNum];
@@ -139,25 +164,7 @@ class Inventory {
       } else {
         itemName = "Empty Slot";
       }
-      const xPadding = 30;
-      const yPadding = 20;
-      const descX = this.x + this.width / 2.0 - ctx.measureText(itemName).width / 2.0;
-      const descY = this.height + yPadding;
-      const descBoxX = descX - xPadding;
-      const descBoxY = this.height + 1.5;
-
-      console.log(descX, descBoxX);
-
-      const descBoxWidth = 2 * (this.width / 2.0 - descBoxX + this.x);
-      const descBoxHeight = 25;
-      const state = easeInOutCubic(this.progress);
-      ctx.fillStyle = this.bgColor;
-      ctx.strokeStyle = "rgb(0, 0, 0)";
-      ctx.strokeRect(descBoxX, interpolate(-this.boxSize - 3, descBoxY, state), descBoxWidth, descBoxHeight);
-      ctx.fillRect(descBoxX, interpolate(-this.boxSize - 3, descBoxY, state), descBoxWidth, descBoxHeight);
-      ctx.fillStyle = "rgb(0, 0, 0)";
-      ctx.fillText(itemName, descX, interpolate(-this.boxSize - 3, descY, state));
-      ctx.restore();
+      this.drawItemDescription(itemName);
     }
   }
 

@@ -148,15 +148,21 @@ function checkInventoryBoxes(e) {
   }
 }
 
+function selectFromInventory() {
+  if (inventory.visible) {
+    inventory.selectItem();
+  }
+}
+
 window.addEventListener('click', e => {
   if (currentRoom === null) return;
   checkClickablesClicked(e);
   manageTextBox(e);
+  selectFromInventory();
   redraw();
 });
 
 window.addEventListener('mousemove', e => {
-  // console.log(textbox.text[textbox.textCounter]);
   if (currentRoom === null) return;
   checkClickablesHovered(e);
   checkShowInventory(e);

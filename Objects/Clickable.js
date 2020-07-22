@@ -33,7 +33,6 @@ class Clickable {
     switch (type) {
       case 'text': {
         textbox.setText(action.text);
-        console.log(textbox.text);
         textbox.setVisible(true);
         break;
       }

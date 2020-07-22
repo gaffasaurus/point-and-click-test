@@ -49,7 +49,6 @@ class TextBox {
       //set text settings
       ctx.fillStyle = 'rgb(0, 0, 0)';
       //write text
-      console.log(this.text + ", " + this.textCounter + ", " + this.text[this.textCounter]);
       this.wrapText(this.text[this.textCounter], this.textX, this.textY);
       //Display speaker box if there is a speaker
       if (this.speaker.length > 0) {

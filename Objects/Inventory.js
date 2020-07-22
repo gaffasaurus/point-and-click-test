@@ -12,6 +12,7 @@ class Inventory {
     this.boxesWidth = this.maxSlots * (this.boxSize + this.boxSpacing) - this.boxSpacing; //width of all slots
     this.boxYOffset = 35;
     this.boxColor = "rgb(150, 150, 150)";
+    this.selectedOutline = "rgb(255, 255, 0)"
     this.width = this.maxSlots * (this.boxSize + this.boxSpacing) + this.boxSpacing;
     this.height = this.boxYOffset + this.boxSize + this.boxSpacing;
     this.boxXOffset = this.x + (this.width / 2 - this.boxesWidth / 2);
@@ -42,6 +43,7 @@ class Inventory {
     //important attributes
     this.visible = false;
     this.items = [];
+    this.selected = [];
 
     this.animating = false;
     this.progress = 0;
@@ -84,6 +86,9 @@ class Inventory {
         const item = this.items[i];
         const { x, y } = this.getBoxPosition(i);
         ctx.drawImage(item.image, x, y, this.boxSize, this.boxSize);
+        if (this.selected[0] === item) {
+          this.drawSelectedOutline({ x, y });
+        }
       }
     }
     if (state < 1) {
@@ -134,7 +139,6 @@ class Inventory {
       } else {
         itemName = "Empty Slot";
       }
-      console.log(itemName);
       const xPadding = 10;
       const yPadding = 20;
       const tagWidth = ctx.measureText(itemName).width + xPadding;
@@ -146,6 +150,23 @@ class Inventory {
       ctx.fillStyle = "rgb(0, 0, 0)";
       ctx.fillText(itemName, tagX + xPadding / 2.0, tagY + yPadding / 2.0);
       ctx.restore();
+    }
+  }
+
+  drawSelectedOutline(boxPos) {
+    ctx.save();
+    ctx.strokeStyle = this.selectedOutline;
+    ctx.lineWidth = 4;
+    ctx.strokeRect(boxPos.x, boxPos.y, this.boxSize, this.boxSize);
+    ctx.restore();
+  }
+
+  selectItem() {
+    if (this.items[this.boxNum]) {
+      const boxPos = this.getBoxPosition(this.boxNum);
+      this.drawSelectedOutline(boxPos);
+      this.selected.splice(0, 1, this.items[this.boxNum]);
+      console.log(this.selected);
     }
   }
 

@@ -60,6 +60,7 @@ class Clickable {
           }
           const clickables = roomData[currentRoom].clickables;
           replaceInArray(clickables, this, clickableFromJson(action.unlocked));
+          removeFromArray(inventory.selected, selected);
         } else {
           textbox.setText(action.text);
           textbox.setVisible(true);

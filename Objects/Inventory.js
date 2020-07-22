@@ -37,8 +37,8 @@ class Inventory {
     ctx.restore();
     //item name on hover
     // this.itemTagColor = "rgb(255, 253, 173)"
-    this.itemTagFont = "bold 14px sans-serif";
-    this.itemTagFontSize = 14;
+    this.descFont = "bold 12px sans-serif";
+    this.descFontSize = 14;
     // ctx.font = this.itemTagFont;
     //important attributes
     this.visible = false;
@@ -129,7 +129,7 @@ class Inventory {
   displayItemText() {
     if (this.boxNum >= 0) {
       ctx.save();
-      ctx.font = this.itemTagFont;
+      ctx.font = this.descFont;
       // ctx.strokeStyle = "rgb(0, 0, 0)";
       // ctx.fillStyle = this.itemTagColor;
       const item = this.items[this.boxNum];
@@ -139,16 +139,24 @@ class Inventory {
       } else {
         itemName = "Empty Slot";
       }
-      const xPadding = 20;
-      const yPadding = 68;
-      // const tagWidth = ctx.measureText(itemName).width + xPadding;
-      // const tagHeight = this.boxSize / 3.5;
-      const tagX = this.x + this.width / 2 - ctx.measureText(itemName).width / 2;
-      const tagY = this.boxYOffset + yPadding;
-      // ctx.strokeRect(tagX, tagY, tagWidth, tagHeight);
-      // ctx.fillRect(tagX, tagY, tagWidth, tagHeight);
+      const xPadding = 30;
+      const yPadding = 20;
+      const descX = this.x + this.width / 2.0 - ctx.measureText(itemName).width / 2.0;
+      const descY = this.height + yPadding;
+      const descBoxX = descX - xPadding;
+      const descBoxY = this.height + 1.5;
+
+      console.log(descX, descBoxX);
+
+      const descBoxWidth = 2 * (this.width / 2.0 - descBoxX + this.x);
+      const descBoxHeight = 25;
+      const state = easeInOutCubic(this.progress);
+      ctx.fillStyle = this.bgColor;
+      ctx.strokeStyle = "rgb(0, 0, 0)";
+      ctx.strokeRect(descBoxX, interpolate(-this.boxSize - 3, descBoxY, state), descBoxWidth, descBoxHeight);
+      ctx.fillRect(descBoxX, interpolate(-this.boxSize - 3, descBoxY, state), descBoxWidth, descBoxHeight);
       ctx.fillStyle = "rgb(0, 0, 0)";
-      ctx.fillText(itemName, tagX, interpolate(-this.boxSize - 3, tagY, easeInOutCubic(this.progress)));
+      ctx.fillText(itemName, descX, interpolate(-this.boxSize - 3, descY, state));
       ctx.restore();
     }
   }

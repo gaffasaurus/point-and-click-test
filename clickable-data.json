@@ -37,7 +37,7 @@
         "type": "image",
         "image": "images/key.png",
         "x": 650,
-        "y": 260,
+        "y": 240,
         "action": {
           "type": "item",
           "text": ["It's a skeleton key. Looks perfect for unlocking that can of Hatsune™ over there.", "(Key added to inventory.)"],

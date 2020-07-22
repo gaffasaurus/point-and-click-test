@@ -142,6 +142,12 @@ function checkShowInventory(e) {
   inventory.setVisible(inventory.hover(e));
 }
 
+function checkInventoryBoxes(e) {
+  if (inventory.visible) {
+    inventory.hoverOverBox(e);
+  }
+}
+
 window.addEventListener('click', e => {
   if (currentRoom === null) return;
   checkClickablesClicked(e);
@@ -154,5 +160,6 @@ window.addEventListener('mousemove', e => {
   if (currentRoom === null) return;
   checkClickablesHovered(e);
   checkShowInventory(e);
+  checkInventoryBoxes(e)
   redraw();
 });

@@ -34,6 +34,11 @@ class Inventory {
     this.tabTextX = (this.x + this.width / 2) - (ctx.measureText(this.tabText).width / 2);
     this.tabTextY = 14;
     ctx.restore();
+    //item name on hover
+    this.itemTagColor = "rgb(255, 253, 173)"
+    this.itemTagFont = "12px sans-serif";
+    this.itemTagFontSize = 14;
+    // ctx.font = this.itemTagFont;
     //important attributes
     this.visible = false;
     this.items = [];
@@ -44,9 +49,10 @@ class Inventory {
 
   // Utility method that gets the top-left corner of the box given its index
   getBoxPosition(index) {
+    const state = easeInOutCubic(this.progress);
     return {
       x: (this.boxSize + this.boxSpacing) * index + this.boxXOffset,
-      y: this.boxYOffset
+      y: interpolate(-this.boxSize - 3, this.boxYOffset, state)
     };
   }
 
@@ -70,15 +76,14 @@ class Inventory {
       for (let i = 0; i < this.maxSlots; i++) {
         const { x, y } = this.getBoxPosition(i);
         ctx.fillStyle = this.boxColor;
-        ctx.strokeRect(x, interpolate(-this.boxSize - 3, y, state), this.boxSize, this.boxSize);
-        ctx.fillRect(x, interpolate(-this.boxSize - 3, y, state), this.boxSize, this.boxSize);
+        ctx.strokeRect(x, y, this.boxSize, this.boxSize);
+        ctx.fillRect(x, y, this.boxSize, this.boxSize);
       }
       //draw items
       for (let i = 0; i < this.items.length; i++) {
         const item = this.items[i];
         const { x, y } = this.getBoxPosition(i);
-        // TODO draw items
-        ctx.drawImage(item.image, x, interpolate(-this.boxSize - 3, y, state), this.boxSize, this.boxSize);
+        ctx.drawImage(item.image, x, y, this.boxSize, this.boxSize);
       }
     }
     if (state < 1) {
@@ -86,6 +91,9 @@ class Inventory {
       ctx.font = this.tabFont;
       ctx.fillStyle = "rgb(0, 0, 0)";
       ctx.fillText(this.tabText, this.tabTextX, this.tabTextY + interpolate(0, this.height - this.tabHeight, state));
+    }
+    if (this.visible) {
+      this.displayItemText();
     }
     ctx.restore();
   }
@@ -97,6 +105,47 @@ class Inventory {
       return between(testX, this.x, this.x + this.width) && between(testY, this.y, this.y + this.tabHeight);
     } else {
       return between(testX, this.x, this.x + this.width) && between(testY, this.y, this.y + this.height);
+    }
+  }
+
+  hoverOverBox(e) {
+    const testX = (e.clientX - canvas.offsetLeft) / scale;
+    const testY = (e.clientY - canvas.offsetTop) / scale;
+    for (let i = 0; i < this.maxSlots; i++) {
+      const { x, y } = this.getBoxPosition(i);
+      if (between(testX, x, x + this.boxSize) && between(testY, y, y + this.boxSize)) {
+        this.boxNum = i;
+        return;
+      }
+    }
+    this.boxNum = -1;
+  }
+
+  displayItemText() {
+    if (this.boxNum >= 0) {
+      ctx.save();
+      ctx.font = this.itemTagFont;
+      ctx.strokeStyle = "rgb(0, 0, 0)";
+      ctx.fillStyle = this.itemTagColor;
+      const item = this.items[this.boxNum];
+      let itemName;
+      if (item) {
+        itemName = this.items[this.boxNum].name;
+      } else {
+        itemName = "Empty Slot";
+      }
+      console.log(itemName);
+      const xPadding = 10;
+      const yPadding = 20;
+      const tagWidth = ctx.measureText(itemName).width + xPadding;
+      const tagHeight = this.boxSize / 3.5;
+      const tagX = this.getBoxPosition(this.boxNum).x + this.boxSize / 2.0 - tagWidth / 2.0;
+      const tagY = this.boxYOffset - yPadding - 5;
+      ctx.strokeRect(tagX, tagY, tagWidth, tagHeight);
+      ctx.fillRect(tagX, tagY, tagWidth, tagHeight);
+      ctx.fillStyle = "rgb(0, 0, 0)";
+      ctx.fillText(itemName, tagX + xPadding / 2.0, tagY + yPadding / 2.0);
+      ctx.restore();
     }
   }
 

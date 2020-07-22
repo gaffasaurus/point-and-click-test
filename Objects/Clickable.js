@@ -51,16 +51,21 @@ class Clickable {
         break;
       }
       case 'locked': {
-        if (inventory.selected.length > 0 && inventory.selected[0].id === action.key) {
+        if (inventory.selected.length > 0) {
           const selected = inventory.selected[0];
-          textbox.setText(action.unlockText);
-          textbox.setVisible(true);
-          if (!selected.reusable) {
-            removeFromArray(inventory.items, selected);
+          if (selected.id === action.key) {
+            textbox.setText(action.unlockText);
+            textbox.setVisible(true);
+            if (!selected.reusable) {
+              removeFromArray(inventory.items, selected);
+            }
+            const clickables = roomData[currentRoom].clickables;
+            replaceInArray(clickables, this, clickableFromJson(action.unlocked));
+            removeFromArray(inventory.selected, selected);
+          } else {
+            textbox.setText([selected.name + " cannot be used on this object!"]);
+            textbox.setVisible(true);
           }
-          const clickables = roomData[currentRoom].clickables;
-          replaceInArray(clickables, this, clickableFromJson(action.unlocked));
-          removeFromArray(inventory.selected, selected);
         } else {
           textbox.setText(action.text);
           textbox.setVisible(true);

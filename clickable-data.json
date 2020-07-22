@@ -14,22 +14,22 @@
       },
       {
         "type": "image",
-        "image": "images/hatsune drink.png",
-        "x": 540,
-        "y": 220,
-        "idealHeight": 100,
-        "preload": ["images/hatsune drink.png"],
+        "image": "images/locked chest.png",
+        "x": 570,
+        "y": 190,
+        "idealHeight": 140,
+        "preload": ["images/locked chest.png"],
         "action": {
           "type": "locked",
-          "key": "drinkKey",
-          "text": ["This can leads to another room, but it's locked. There should be a key somewhere I can use to unlock it."],
-          "unlockText": ["The can opens with a click."],
+          "key": "skeletonKey",
+          "text": ["The chest is locked. There should be a key somewhere I can use to unlock it."],
+          "unlockText": ["The chest unlocks with a click."],
           "unlocked": {
             "type": "image",
-            "image": "images/hatsune drink.png",
-            "x": 540,
-            "y": 220,
-            "idealHeight": 100,
+            "image": "images/locked chest.png",
+            "x": 570,
+            "y": 190,
+            "idealHeight": 140,
             "action": {
               "type": "room",
               "dest": "second room"
@@ -55,20 +55,6 @@
         "action": {
           "type": "room",
           "dest": "second room"
-        }
-      },
-      {
-        "type": "image",
-        "image": "images/key.png",
-        "x": 650,
-        "y": 240,
-        "action": {
-          "type": "item",
-          "text": ["It's a skeleton key. Looks perfect for unlocking that can of Hatsune™ over there.", "(Key added to inventory.)"],
-          "image": "images/keyIcon.png",
-          "name": "Key",
-          "id": "drinkKey",
-          "reusable": true
         }
       }
     ]
@@ -139,6 +125,21 @@
         "action": {
           "type": "text",
           "text": ["It's a cello.", "I used to be able to play back in the day, but I haven't touched one in ages."]
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/key.png",
+        "x": 400,
+        "y": 300,
+        "idealHeight": 70,
+        "action": {
+          "type": "item",
+          "text": ["It's a skeleton key that can unlock anything.", "(Skeleton Key added to inventory.)"],
+          "image": "images/keyIcon.png",
+          "name": "Skeleton Key",
+          "id": "skeletonKey",
+          "reusable": true
         }
       }
     ]

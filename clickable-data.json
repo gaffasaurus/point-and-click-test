@@ -31,8 +31,23 @@
             "y": 190,
             "idealHeight": 140,
             "action": {
-              "type": "room",
-              "dest": "second room"
+              "type": "item",
+              "text": ["The chest has an odd looking clown doll in it.", "(Clown Doll added to inventory.)"],
+              "image": "images/clown doll.png",
+              "name": "Clown Doll",
+              "id": "clownDoll",
+              "reusable": false,
+              "replace": {
+                "type": "image",
+                "image": "images/open chest.png",
+                "x": 570,
+                "y": 190,
+                "idealHeight": 140,
+                "action": {
+                  "type": "text",
+                  "text": ["The chest is empty."]
+                }
+              }
             }
           }
         }

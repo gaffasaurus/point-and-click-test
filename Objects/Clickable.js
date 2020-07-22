@@ -55,7 +55,7 @@ class Clickable {
           const selected = inventory.selected[0];
           textbox.setText(action.unlockText);
           textbox.setVisible(true);
-          if (!action.reusable) {
+          if (!selected.reusable) {
             removeFromArray(inventory.items, selected);
           }
           const clickables = roomData[currentRoom].clickables;

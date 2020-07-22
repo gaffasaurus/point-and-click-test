@@ -36,8 +36,8 @@ class Inventory {
     this.tabTextY = 14;
     ctx.restore();
     //item name on hover
-    this.itemTagColor = "rgb(255, 253, 173)"
-    this.itemTagFont = "12px sans-serif";
+    // this.itemTagColor = "rgb(255, 253, 173)"
+    this.itemTagFont = "bold 14px sans-serif";
     this.itemTagFontSize = 14;
     // ctx.font = this.itemTagFont;
     //important attributes
@@ -130,8 +130,8 @@ class Inventory {
     if (this.boxNum >= 0) {
       ctx.save();
       ctx.font = this.itemTagFont;
-      ctx.strokeStyle = "rgb(0, 0, 0)";
-      ctx.fillStyle = this.itemTagColor;
+      // ctx.strokeStyle = "rgb(0, 0, 0)";
+      // ctx.fillStyle = this.itemTagColor;
       const item = this.items[this.boxNum];
       let itemName;
       if (item) {
@@ -139,16 +139,16 @@ class Inventory {
       } else {
         itemName = "Empty Slot";
       }
-      const xPadding = 10;
-      const yPadding = 20;
-      const tagWidth = ctx.measureText(itemName).width + xPadding;
-      const tagHeight = this.boxSize / 3.5;
-      const tagX = this.getBoxPosition(this.boxNum).x + this.boxSize / 2.0 - tagWidth / 2.0;
-      const tagY = this.boxYOffset - yPadding - 5;
-      ctx.strokeRect(tagX, tagY, tagWidth, tagHeight);
-      ctx.fillRect(tagX, tagY, tagWidth, tagHeight);
+      const xPadding = 20;
+      const yPadding = 68;
+      // const tagWidth = ctx.measureText(itemName).width + xPadding;
+      // const tagHeight = this.boxSize / 3.5;
+      const tagX = this.x + this.width / 2 - ctx.measureText(itemName).width / 2;
+      const tagY = this.boxYOffset + yPadding;
+      // ctx.strokeRect(tagX, tagY, tagWidth, tagHeight);
+      // ctx.fillRect(tagX, tagY, tagWidth, tagHeight);
       ctx.fillStyle = "rgb(0, 0, 0)";
-      ctx.fillText(itemName, tagX + xPadding / 2.0, tagY + yPadding / 2.0);
+      ctx.fillText(itemName, tagX, interpolate(-this.boxSize - 3, tagY, easeInOutCubic(this.progress)));
       ctx.restore();
     }
   }

@@ -179,16 +179,38 @@ class Inventory {
       // if (this.selected[0] === this.items[this.boxNum]) {
       //   this.drawSelectedOutline(boxPos);
       // }
+      const item = this.items[this.boxNum];
       switch(this.selected.length) {
         case 0: {
-          this.selected.push(this.items[this.boxNum]);
+          this.selected.push(item);
           break;
         }
         case 1: {
-          if (this.items[this.boxNum] !== this.selected[0]) {
-            this.selected.push(this.items)
+          if (item !== this.selected[0]) {
+            this.selected.push(item);
           } else {
             this.selected.pop();
+            return;
+          }
+          let foundCombo = false;
+          if (this.selected[0].combinations && this.selected[1].combinations) {
+            for (let combo of this.selected[0].combinations) {
+              if (combo.partner === this.selected[1].id) {
+                removeFromArray(this.items, this.selected[0]);
+                removeFromArray(this.items, this.selected[1]);
+                this.selected = [];
+                const newIcon = new Image();
+                newIcon.src = combo.image;
+                this.items.push(new Item(newIcon, combo.name, combo.id, combo.reusable, combo.combinations));
+                foundCombo = true;
+              }
+            }
+            if (!foundCombo) {
+              this.selected = [];
+              textbox.setTextCounter(0);
+              textbox.setText(["These items cannot be combined!"]);
+              textbox.setVisible(true);
+            }
           }
           break;
         }

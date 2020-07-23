@@ -48,7 +48,7 @@ class Clickable {
         icon.src = action.image;
         textbox.setText(action.text);
         textbox.setVisible(true);
-        inventory.addItem(new Item(icon, action.name, action.id, action.reusable));
+        inventory.addItem(new Item(icon, action.name, action.id, action.reusable, action.combinations));
         const clickables = roomData[currentRoom].clickables;
         if (action.replace) {
           replaceInArray(clickables, this, clickableFromJson(action.replace));
@@ -62,7 +62,7 @@ class Clickable {
       case 'locked': {
         if (inventory.selected.length > 0) {
           const selected = inventory.selected[0];
-          if (selected.id === action.key) {
+          if (action.key.includes(selected.id)) {
             textbox.setText(action.unlockText);
             textbox.setVisible(true);
             if (!selected.reusable) {
@@ -84,14 +84,6 @@ class Clickable {
           textbox.setVisible(true);
         }
         break;
-      }
-      case 'container': {
-        textbox.setText(action.text);
-        textbox.setVisible(true);
-        const icon = new Image();
-        icon.src = action.image;
-        inventory.addItem(new Item(icon, action.name, action.id, action.reusable));
-
       }
       // Plays audio
       case 'audio': {

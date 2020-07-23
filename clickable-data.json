@@ -21,7 +21,7 @@
         "preload": ["images/locked chest.png", "images/open chest.png"],
         "action": {
           "type": "locked",
-          "key": "skeletonKey",
+          "key": ["skeletonKey"],
           "text": ["The chest is locked. There should be a key somewhere I can use to unlock it."],
           "unlockText": ["The chest unlocks with a click."],
           "unlocked": {
@@ -37,6 +37,13 @@
               "name": "Clown Doll",
               "id": "clownDoll",
               "reusable": false,
+              "combinations": [{
+                "partner": "skeletonKey",
+                "image": "images/clown key.png",
+                "name": "Clown Key",
+                "id": "clownKey",
+                "reusable": false
+              }],
               "replace": {
                 "type": "image",
                 "image": "images/open chest.png",
@@ -151,10 +158,16 @@
         "action": {
           "type": "item",
           "text": ["It's a skeleton key that can unlock anything.", "(Skeleton Key added to inventory.)"],
-          "image": "images/keyIcon.png",
+          "image": "images/key icon.png",
           "name": "Skeleton Key",
           "id": "skeletonKey",
-          "reusable": true
+          "reusable": true,
+          "combinations": [{
+            "partner": "clownDoll",
+            "image": "images/clown key.png",
+            "name": "Clown Key",
+            "id": "clownKey"
+          }]
         }
       }
     ]

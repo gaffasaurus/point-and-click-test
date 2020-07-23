@@ -122,8 +122,8 @@
         "x": 200,
         "y": 250,
         "action": {
-          "type": "audio",
-          "file": "audio/prokofiev cello.mp3"
+          "type": "text",
+          "text": ["It's a cello. It doesn't play music anymore because I didn't want to put in the effort to add pausing to the previous version that did.", "This caused a few problems as you can imagine."]
         }
       },
       {

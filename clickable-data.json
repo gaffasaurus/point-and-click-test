@@ -18,7 +18,7 @@
         "x": 570,
         "y": 190,
         "idealHeight": 140,
-        "preload": ["images/locked chest.png", "images/open chest.png"],
+        "preload": ["images/locked chest.png", "images/open chest.png", "images/clown key.png"],
         "action": {
           "type": "locked",
           "key": ["skeletonKey"],
@@ -98,6 +98,7 @@
         "type": "image",
         "image": "images/paper.png",
         "idealHeight": 100,
+        "preload": ["images/paper zoomed.png"],
         "x": 600,
         "y": 240,
         "action": {
@@ -166,6 +167,7 @@
         "x": 400,
         "y": 300,
         "idealHeight": 70,
+        "preload": ["images/clown key.png"],
         "action": {
           "type": "item",
           "text": ["It's a skeleton key that can unlock anything.", "(Skeleton Key added to inventory.)"],

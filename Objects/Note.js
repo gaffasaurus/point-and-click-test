@@ -5,7 +5,7 @@ class Note {
   }
 
   draw() {
-    const maxHeight = parseFloat(IDEAL_WIDTH / RATIO);
+    const maxHeight = IDEAL_WIDTH / RATIO;
     if (this.image && this.visible) {
       const ratio = this.image.height / maxHeight;
       const noteWidth = this.image.width / ratio;

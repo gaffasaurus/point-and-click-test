@@ -85,6 +85,12 @@ class Clickable {
         }
         break;
       }
+      case 'note': {
+        const zoomed = new Image();
+        zoomed.src = action.image;
+        note.setImage(zoomed);
+        note.setVisible(true);
+      }
       // Plays audio
       case 'audio': {
         const audio = new Audio(action.file);

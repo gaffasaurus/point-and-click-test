@@ -87,11 +87,32 @@
       {
         "type": "image",
         "image": "images/fullgeff.png",
-        "x": 500,
-        "y": 130,
+        "x": 450,
+        "y": 150,
         "action": {
           "type": "text",
           "text": ["Ergonomics"]
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/paper.png",
+        "idealHeight": 100,
+        "x": 600,
+        "y": 240,
+        "action": {
+          "type": "note",
+          "image": "images/paper zoomed.png"
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/juice.png",
+        "x": 700,
+        "y": 200,
+        "action": {
+          "type": "text",
+          "text": ["Juice!"]
         }
       },
       {
@@ -102,16 +123,6 @@
         "action": {
           "type": "audio",
           "file": "audio/prokofiev cello.mp3"
-        }
-      },
-      {
-        "type": "image",
-        "image": "images/juice.png",
-        "x": 580,
-        "y": 190,
-        "action": {
-          "type": "text",
-          "text": ["Juice!"]
         }
       },
       {

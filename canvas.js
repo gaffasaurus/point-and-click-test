@@ -95,6 +95,7 @@ let roomData = {};
 let currentRoom = null;
 let textbox;
 let inventory;
+let note;
 loadRoomData()
   .then(rooms => {
     roomData = rooms;
@@ -102,6 +103,7 @@ loadRoomData()
     setSize();
     textbox = new TextBox();
     inventory = new Inventory();
+    note = new Note();
     redraw();
   });
 
@@ -129,6 +131,11 @@ function redraw() {
   } catch (err) {
     console.error(err);
   }
+  try {
+    note.draw();
+  } catch(err) {
+    console.error(err);
+  }
 }
 
 
@@ -139,6 +146,16 @@ function manageTextBox(e) {
   if (textbox.textCounter >= textbox.text.length) {
     textbox.resetTextCounter();
     textbox.setVisible(false);
+  }
+}
+
+function manageNote(e) {
+  if (note.visible) {
+    note.incrementCounter();
+    if (note.clickCounter >= 2) {
+      note.setVisible(false);
+      note.resetCounter();
+    }
   }
 }
 
@@ -178,6 +195,8 @@ window.addEventListener('click', e => {
   if (currentRoom === null) return;
   checkClickablesClicked(e);
   manageTextBox(e);
+  manageNote(e);
+  console.log(note.clickCounter);
   selectFromInventory();
   redraw();
 });

@@ -63,9 +63,9 @@ function clickableFromJson ({ type, x, y, action, ...data }) {
   }
 }
 
-async function loadRoomData() {
+async function loadRoomData(jsonUrl) {
   // Load JSON file
-  const roomData = await fetch('clickable-data.json')
+  const roomData = await fetch(jsonUrl)
     .then(response => response.json());
   // Store room data in object
   const rooms = {};
@@ -96,7 +96,7 @@ let currentRoom = null;
 let textbox;
 let inventory;
 let note;
-loadRoomData()
+loadRoomData('clickable-data.json')
   .then(rooms => {
     roomData = rooms;
     currentRoom = 'main room';

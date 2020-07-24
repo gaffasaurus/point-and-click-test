@@ -18,7 +18,7 @@
         "x": 570,
         "y": 190,
         "idealHeight": 140,
-        "preload": ["images/locked chest.png", "images/open chest.png", "images/clown key.png"],
+        "preload": ["images/locked chest.png", "images/open chest.png", "images/open chest clown.png", "images/clown key.png"],
         "action": {
           "type": "locked",
           "key": ["skeletonKey"],
@@ -26,7 +26,7 @@
           "unlockText": ["The chest unlocks with a click."],
           "unlocked": {
             "type": "image",
-            "image": "images/open chest.png",
+            "image": "images/open chest clown.png",
             "x": 570,
             "y": 190,
             "idealHeight": 140,

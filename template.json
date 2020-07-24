@@ -1,0 +1,176 @@
+{
+  "main room": {
+    "bg": "images/bgimages/room3 bg.png",
+    "clickables": [
+      {
+        "type": "image",
+        "image": "images/fullgeff.png",
+        "x": 100,
+        "y": 300,
+        "action": {
+          "type": "text",
+          "text": [
+            "This gets shown when you click on the object.",
+            "This gets shown after you click again.",
+            "And so on."
+          ]
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/cello.png",
+        "x": 150,
+        "y": 300,
+        "idealHeight": 50,
+        "action": {
+          "type": "text",
+          "text": ["Resize an image by specifying an idealHeight."]
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/juice.png",
+        "x": 300,
+        "y": 300,
+        "preload": ["images/clown doll.png"],
+        "action": {
+          "type": "locked",
+          "key": ["ID OF ITEM NEEDED TO UNLOCK"],
+          "text": ["This gets shown while it's locked and you aren't selecting the proper item."],
+          "unlockText": ["This gets shown when you successfully unlock the object with the proper item."],
+          "unlocked": {
+            "type": "image",
+            "image": "images/clown doll.png",
+            "x": 300,
+            "y": 300,
+            "action": {
+              "type": "text",
+              "text": ["This is `unlocked`."]
+            }
+          }
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/fullgeff.png",
+        "x": 500,
+        "y": 300,
+        "preload": ["images/open chest.png"],
+        "action": {
+          "type": "item",
+          "text": ["This gets shown as an item is added to your inventory."],
+          "image": "images/paper.png",
+          "name": "The name of the item in the inventory",
+          "id": "ID OF ITEM NEEDED TO UNLOCK",
+          "reusable": true,
+          "replace": {
+            "type": "image",
+            "image": "images/open chest.png",
+            "x": 500,
+            "y": 300,
+            "action": {
+              "type": "text",
+              "text": [
+                "`replace` is optional.",
+                "It'll always destroy the object after you get the item,",
+                "but you can specify `replace` to add a new object in its place."
+              ]
+            }
+          }
+        }
+      },
+      {
+        "type": "arrow",
+        "direction": "down",
+        "x": 640,
+        "y": 562,
+        "action": {
+          "type": "text",
+          "text": ["This is an arrow."]
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/locked chest.png",
+        "x": 900,
+        "y": 300,
+        "idealHeight": 300,
+        "action": {
+          "type": "room",
+          "dest": "another room id"
+        }
+      }
+    ]
+  },
+  "another room id": {
+    "bg": "images/bgimages/main room bg.png",
+    "clickables": [
+      {
+        "type": "image",
+        "image": "images/fullgeff.png",
+        "x": 900,
+        "y": 300,
+        "idealHeight": 300,
+        "action": {
+          "type": "audio",
+          "file": "audio/prokofiev cello.mp3"
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/paper zoomed.png",
+        "x": 200,
+        "y": 300,
+        "preload": ["images/hatsune drink.png"],
+        "action": {
+          "type": "note",
+          "image": "images/hatsune drink.png"
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/room3 door.png",
+        "x": 100,
+        "y": 100,
+        "idealHeight": 300,
+        "action": {
+          "type": "item",
+          "text": ["You got a door. Combine this with the clown doll."],
+          "image": "images/room3 door.png",
+          "name": "Door to be combined with clown doll",
+          "id": "DOOR ID",
+          "combinations": [
+            {
+              "partner": "CLOWN DOLL ID",
+              "image": "images/juice.png",
+              "name": "This is the name of the product (if you use the door on the clown doll).",
+              "id": "PRODUCT ID"
+            }
+          ]
+        }
+      },
+      {
+        "type": "image",
+        "image": "images/clown doll.png",
+        "x": 800,
+        "y": 100,
+        "idealHeight": 300,
+        "action": {
+          "type": "item",
+          "text": ["You got a clown doll. Combine this with the door."],
+          "image": "images/clown doll.png",
+          "name": "Clown doll to be combined with door",
+          "id": "CLOWN DOLL ID",
+          "combinations": [
+            {
+              "partner": "DOOR ID",
+              "image": "images/juice.png",
+              "name": "This is the name of the product (if you use the clown doll on the door).",
+              "id": "PRODUCT ID"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

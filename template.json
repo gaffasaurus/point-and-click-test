@@ -1,12 +1,12 @@
 {
   "main room": {
-    "bg": "images/bgimages/room3 bg.png",
+    "bg": "background image url",
     "clickables": [
       {
         "type": "image",
-        "image": "images/fullgeff.png",
-        "x": 100,
-        "y": 300,
+        "image": "image url",
+        "x": 0,
+        "y": 0,
         "action": {
           "type": "text",
           "text": [
@@ -18,56 +18,39 @@
       },
       {
         "type": "image",
-        "image": "images/cello.png",
-        "x": 150,
-        "y": 300,
-        "idealHeight": 50,
+        "image": "image url",
+        "x": 0,
+        "y": 0,
         "action": {
-          "type": "text",
-          "text": ["Resize an image by specifying an idealHeight."]
+          "type": "room",
+          "dest": "Room that arrow leads to"
         }
       },
       {
         "type": "image",
-        "image": "images/juice.png",
-        "x": 300,
-        "y": 300,
-        "preload": ["images/clown doll.png"],
-        "action": {
-          "type": "locked",
-          "key": ["ID OF ITEM NEEDED TO UNLOCK"],
-          "text": ["This gets shown while it's locked and you aren't selecting the proper item."],
-          "unlockText": ["This gets shown when you successfully unlock the object with the proper item."],
-          "unlocked": {
-            "type": "image",
-            "image": "images/clown doll.png",
-            "x": 300,
-            "y": 300,
-            "action": {
-              "type": "text",
-              "text": ["This is `unlocked`."]
-            }
-          }
-        }
-      },
-      {
-        "type": "image",
-        "image": "images/fullgeff.png",
-        "x": 500,
-        "y": 300,
-        "preload": ["images/open chest.png"],
+        "image": "image url",
+        "x": 0,
+        "y": 0,
+        "idealHeight": "Scales image",
+        "preload": ["images to preload if there are nested images"],
         "action": {
           "type": "item",
-          "text": ["This gets shown as an item is added to your inventory."],
-          "image": "images/paper.png",
-          "name": "The name of the item in the inventory",
-          "id": "ID OF ITEM NEEDED TO UNLOCK",
-          "reusable": true,
+          "text": ["Text to be displayed when item is picked up"],
+          "image": ["Sprite to be displayed for the image"],
+          "name": ["Name of item"],
+          "id": ["Unique ID of item to be used for reference"],
+          "reusable": "Boolean that decides if item disappears after using",
+          "combinations": [{
+            "partner": "Item to be combined with",
+            "image": "Icon of new image that is created after combination",
+            "name": "Name of new item",
+            "id": "ID of new item"
+          }],
           "replace": {
             "type": "image",
-            "image": "images/open chest.png",
-            "x": 500,
-            "y": 300,
+            "image": "image url",
+            "x": 0,
+            "y": 0,
             "action": {
               "type": "text",
               "text": [
@@ -77,6 +60,36 @@
               ]
             }
           }
+        }
+      },
+      {
+        "type": "image",
+        "image": "image url",
+        "x": 0,
+        "y": 0,
+        "idealHeight": 100,
+        "preload": ["image urls"],
+        "action": {
+          "type": "locked",
+          "key": ["Item IDs of possible keys"],
+          "text": ["This is displayed when clicking the locked object"],
+          "unlockText": ["Text that displays when object is unlocked"],
+          "unlocked": {
+            "new object that replaces the locked object after unlock"
+          }
+
+        }
+      },
+      {
+        "type": "image",
+        "image": "image url",
+        "x": 0,
+        "y": 0,
+        "idealHeight": 100,
+        "preload": ["image urls"],
+        "action": {
+          "type": "note",
+          "image": "image url of bigger image to be displayed on click"
         }
       },
       {
@@ -91,7 +104,7 @@
       },
       {
         "type": "image",
-        "image": "images/locked chest.png",
+        "image": "image url",
         "x": 900,
         "y": 300,
         "idealHeight": 300,
@@ -103,7 +116,7 @@
     ]
   },
   "another room id": {
-    "bg": "images/bgimages/main room bg.png",
+    "bg": "background image url",
     "clickables": [
       {
         "type": "image",

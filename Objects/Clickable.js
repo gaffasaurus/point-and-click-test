@@ -95,6 +95,7 @@ class Clickable {
         for (let npc of npcs) {
           if (npc.id === action.id) {
             textbox.setText(action.dialogue[npc.counter]);
+            textbox.setSpeaker(action.name);
             textbox.setVisible(true);
           }
         }

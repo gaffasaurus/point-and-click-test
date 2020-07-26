@@ -153,6 +153,7 @@ function manageTextBox(e) {
   }
   if (textbox.textCounter >= textbox.text.length) {
     textbox.resetTextCounter();
+    textbox.speaker = "";
     textbox.setVisible(false);
   }
 }
@@ -170,6 +171,7 @@ function manageNote(e) {
 function checkClickablesClicked(e) {
   for (const clickable of roomData[currentRoom].clickables) {
     if (clickable.hover(e)) {
+      textbox.speaker = "";
       clickable.onClick();
       textbox.resetTextCounter();
       break; // Do not attempt to click any other clickables

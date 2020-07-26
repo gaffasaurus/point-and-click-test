@@ -94,6 +94,17 @@ class Clickable {
       case 'npc': {
         for (let npc of npcs) {
           if (npc.id === action.id) {
+            for (let selected of inventory.selected) {
+              if (selected.id in action.receiveDialogue) {
+                textbox.setText(action.receiveDialogue[selected.id])
+                textbox.setSpeaker(action.name);
+                textbox.setVisible(true);
+                removeFromArray(inventory.items, selected);
+                inventory.selected = [];
+                npc.givenGift();
+                return;
+              }
+            }
             textbox.setText(action.dialogue[npc.counter]);
             textbox.setSpeaker(action.name);
             textbox.setVisible(true);

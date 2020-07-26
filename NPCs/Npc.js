@@ -10,4 +10,12 @@ class Npc {
   incrementCounter() {
     return;
   }
+
+  setVisible(b) {
+    this.visible = b;
+  }
+
+  givenGift() {
+    return;
+  }
 }

@@ -69,6 +69,10 @@ function createNPC(action) {
       npcs.push(new ExampleNpc(action.name, action.id, action.dialogue, action.visible));
       break;
     }
+    case "Geff": {
+      npcs.push (new Geff(action.name, action.id, action.dialogue, action.visible));
+      break;
+    }
   }
 }
 
@@ -206,7 +210,6 @@ window.addEventListener('click', e => {
   checkClickablesClicked(e);
   manageTextBox(e);
   manageNote(e);
-  console.log(note.clickCounter);
   selectFromInventory();
   redraw();
 });

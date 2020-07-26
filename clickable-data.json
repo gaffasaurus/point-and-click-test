@@ -8,8 +8,16 @@
         "x": 100,
         "y": 300,
         "action": {
-          "type": "text",
-          "text": ["\"Hey man, it's me, geff. How's it going?\""]
+          "type": "npc",
+          "name": "Geff",
+          "id": "geff",
+          "class": "Geff",
+          "dialogue": [
+            ["Hey man, it's me, geff. How's it going?"],
+            ["I always wondered what was in that chest. I've been sitting here for a long time but I haven't been able to move from this spot.", "My existence is pain."],
+            ["Can you please tell the devs to finish up this testing phase so I can leave? I haven't seen my family in weeks."]
+          ],
+          "visible": true
         }
       },
       {
@@ -179,7 +187,8 @@
             "partner": "clownDoll",
             "image": "images/clown key.png",
             "name": "Clown Key",
-            "id": "clownKey"
+            "id": "clownKey",
+            "reusable": false
           }]
         }
       },
@@ -194,7 +203,15 @@
           "name": "Dave",
           "id": "dave",
           "class": "ExampleNpc",
-          "dialogue": [["Hey! It's nice to see another face around here. It's a testing environment, so it can get pretty lonely here.", "The skeleton key in this room should be able to unlock that chest in the room you started in. You can return there with that door to the left."], ["If you're reading this you've obtained the Clown Doll. Great work!", "Now, try combining the clown doll with that key from earlier."], ["Wow! You never cease to amaze me. That clown key isn't used for anything right now, since it was just implemented for testing.", "Isn't combining items cool?"]],
+          "dialogue": [
+            ["Hey! It's nice to see another face around here. It's a testing environment, so it can get pretty lonely here.", "The skeleton key in this room should be able to unlock that chest in the room you started in. You can return there with that door to the left."],
+            ["If you're reading this you've obtained the Clown Doll. Great work!", "Now, try combining the clown doll with that key from earlier."],
+            ["Wow! You never cease to amaze me. That clown key isn't used for anything right now, since it was just implemented for testing.", "Isn't combining items cool?"],
+            ["I'm still holding on to that Clown Key for you.", "I hope you didn't want it back, since there isn't really a way for me to do that right now.", "Maybe the devs will get off their asses and implement this feature in the future."]
+          ],
+          "receiveDialogue": {
+            "clownKey": ["You want me to hold on to this for you? I would be honored to!", "I'm glad that the item gifting mechanic is working properly."]
+          },
           "visible": true
         }
       }

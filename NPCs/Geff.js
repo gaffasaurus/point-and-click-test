@@ -1,7 +1,6 @@
-class ExampleNpc extends Npc {
+class Geff extends Npc {
   constructor(name, id, dialogue, visible) {
     super(name, id, dialogue, visible);
-    this.gifted = false;
   }
 
   incrementCounter() {
@@ -13,13 +12,9 @@ class ExampleNpc extends Npc {
         this.counter = 2;
       }
     }
-    if (this.gifted) {
-      this.counter = 3;
-    }
-
   }
 
   givenGift() {
-    this.gifted = true;
+    return;
   }
 }

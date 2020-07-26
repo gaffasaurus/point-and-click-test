@@ -62,6 +62,15 @@ function clickableFromJson ({ type, x, y, action, ...data }) {
     }
   }
 }
+const npcs = [];
+function createNPC(action) {
+  switch (action.class) {
+    case "ExampleNpc": {
+      npcs.push(new ExampleNpc(action.name, action.id, action.dialogue, action.visible));
+      break;
+    }
+  }
+}
 
 async function loadRoomData(jsonUrl) {
   // Load JSON file
@@ -86,11 +95,15 @@ async function loadRoomData(jsonUrl) {
           await loadImageAsNeeded(preloadImageUrl);
         }
       }
+      if (clickable.action.type === "npc") {
+        createNPC(clickable.action);
+      }
       rooms[roomId].clickables.push(clickableFromJson(clickable));
     }
   }
   return rooms;
 }
+
 let roomData = {};
 let currentRoom = null;
 let textbox;
@@ -118,24 +131,19 @@ function drawClickables() {
   }
 }
 
+function updateNPCs() {
+  for (let npc of npcs) {
+    npc.incrementCounter();
+  }
+}
+
 function redraw() {
   drawBackground();
   drawClickables();
-  try {
-    textbox.draw();
-  } catch (err) {
-    console.error(err);
-  }
-  try {
-    inventory.draw();
-  } catch (err) {
-    console.error(err);
-  }
-  try {
-    note.draw();
-  } catch(err) {
-    console.error(err);
-  }
+  updateNPCs();
+  textbox.draw();
+  inventory.draw();
+  note.draw();
 }
 
 

@@ -91,6 +91,15 @@ class Clickable {
         note.setImage(zoomed);
         note.setVisible(true);
       }
+      case 'npc': {
+        for (let npc of npcs) {
+          if (npc.id === action.id) {
+            textbox.setText(action.dialogue[npc.counter]);
+            textbox.setVisible(true);
+          }
+        }
+        break;
+      }
       // Plays audio
       case 'audio': {
         const audio = new Audio(action.file);
@@ -104,6 +113,14 @@ class Clickable {
       }
       default: {
         console.warn(`${type} is not a valid action type.`);
+      }
+    }
+  }
+
+  createNPCs(action) {
+    switch (action.id) {
+      case 'ExampleNpc': {
+
       }
     }
   }

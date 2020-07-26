@@ -17,6 +17,10 @@
             ["I always wondered what was in that chest. I've been sitting here for a long time but I haven't been able to move from this spot.", "My existence is pain."],
             ["Can you please tell the devs to finish up this testing phase so I can leave? I haven't seen my family in weeks."]
           ],
+          "receiveDialogue": {
+
+          },
+          "rejectDialogue": ["I don't know what to do with this."],
           "visible": true
         }
       },
@@ -212,6 +216,7 @@
           "receiveDialogue": {
             "clownKey": ["You want me to hold on to this for you? I would be honored to!", "I'm glad that the item gifting mechanic is working properly."]
           },
+          "rejectDialogue": ["Sorry, I can't do anything with that item."],
           "visible": true
         }
       }

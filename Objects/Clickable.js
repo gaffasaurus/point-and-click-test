@@ -105,9 +105,16 @@ class Clickable {
                 return;
               }
             }
-            textbox.setText(action.dialogue[npc.counter]);
-            textbox.setSpeaker(action.name);
-            textbox.setVisible(true);
+            if (inventory.selected.length > 0) {
+              textbox.setText(action.rejectDialogue);
+              textbox.setSpeaker(action.name);
+              textbox.setVisible(true);
+              inventory.selected = [];
+            } else {
+              textbox.setText(action.dialogue[npc.counter]);
+              textbox.setSpeaker(action.name);
+              textbox.setVisible(true);
+            }
           }
         }
         break;

@@ -19,7 +19,11 @@ class ExampleNpc extends Npc {
 
   }
 
-  givenGift() {
+  receiveItem() {
     this.gifted = true;
+  }
+
+  itemTaken() {
+    this.gifted = false;
   }
 }

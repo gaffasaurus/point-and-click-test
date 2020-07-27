@@ -13,8 +13,4 @@ class Geff extends Npc {
       }
     }
   }
-
-  givenGift() {
-    return;
-  }
 }

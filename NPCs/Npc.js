@@ -15,7 +15,11 @@ class Npc {
     this.visible = b;
   }
 
-  givenGift() {
+  receiveItem() {
+    return;
+  }
+
+  itemTaken() {
     return;
   }
 }

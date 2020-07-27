@@ -210,8 +210,15 @@
           "dialogue": [
             ["Hey! It's nice to see another face around here. It's a testing environment, so it can get pretty lonely here.", "The skeleton key in this room should be able to unlock that chest in the room you started in. You can return there with that door to the left."],
             ["If you're reading this you've obtained the Clown Doll. Great work!", "Now, try combining the clown doll with that key from earlier."],
-            ["Wow! You never cease to amaze me. That clown key isn't used for anything right now, since it was just implemented for testing.", "Isn't combining items cool?"],
-            ["I'm still holding on to that Clown Key for you.", "I hope you didn't want it back, since there isn't really a way for me to do that right now.", "Maybe the devs will get off their asses and implement this feature in the future."]
+            ["Wow! You never cease to amaze me. That clown key isn't used for anything right now, since it was just implemented for testing, but I can hold onto it for you if you like.", "Isn't combining items cool?"],
+            {
+              "type": "item",
+              "text": ["Oh, did you want the Clown Key back? Here you go!", "If you want me to hold on to it again, I'd be happy to do so."],
+              "image": "images/clown key.png",
+              "name": "Clown Key",
+              "id": "clownKey",
+              "reusable": false
+            }
           ],
           "receiveDialogue": {
             "clownKey": ["You want me to hold on to this for you? I would be honored to!", "I'm glad that the item gifting mechanic is working properly."]

@@ -101,7 +101,7 @@ class Clickable {
                 textbox.setVisible(true);
                 removeFromArray(inventory.items, selected);
                 inventory.selected = [];
-                npc.givenGift();
+                npc.receiveItem();
                 return;
               }
             }
@@ -110,6 +110,18 @@ class Clickable {
               textbox.setSpeaker(action.name);
               textbox.setVisible(true);
               inventory.selected = [];
+            } else if (!Array.isArray(action.dialogue[npc.counter])) {
+              const dialogue = action.dialogue[npc.counter];
+              console.log(dialogue);
+              if (dialogue.type == "item") {
+                textbox.setText(dialogue.text);
+                textbox.setSpeaker(action.name);
+                textbox.setVisible(true);
+                const icon = new Image();
+                icon.src = dialogue.image;
+                inventory.addItem(new Item(icon, dialogue.name, dialogue.id, dialogue.reusable, dialogue.combinations));
+                npc.itemTaken();
+              }
             } else {
               textbox.setText(action.dialogue[npc.counter]);
               textbox.setSpeaker(action.name);

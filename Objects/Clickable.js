@@ -112,7 +112,6 @@ class Clickable {
               inventory.selected = [];
             } else if (!Array.isArray(action.dialogue[npc.counter])) {
               const dialogue = action.dialogue[npc.counter];
-              console.log(dialogue);
               if (dialogue.type == "item") {
                 textbox.setText(dialogue.text);
                 textbox.setSpeaker(action.name);

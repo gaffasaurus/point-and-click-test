@@ -145,6 +145,7 @@ class Clickable {
         console.warn(`${type} is not a valid action type.`);
       }
     }
+    inventory.selected = [];
   }
 
   createNPCs(action) {

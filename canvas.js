@@ -207,7 +207,9 @@ function selectFromInventory() {
 
 window.addEventListener('click', e => {
   if (currentRoom === null) return;
-  checkClickablesClicked(e);
+  if (!textbox.visible) {
+    checkClickablesClicked(e);
+  }
   manageTextBox(e);
   manageNote(e);
   selectFromInventory();
@@ -216,7 +218,9 @@ window.addEventListener('click', e => {
 
 window.addEventListener('mousemove', e => {
   if (currentRoom === null) return;
-  checkClickablesHovered(e);
+  if (!textbox.visible) {
+    checkClickablesHovered(e);
+  }
   checkShowInventory(e);
   checkInventoryBoxes(e)
   redraw();

@@ -7,10 +7,6 @@ class Npc {
     this.counter = 0;
   }
 
-  incrementCounter() {
-    return;
-  }
-
   setVisible(b) {
     this.visible = b;
   }
@@ -20,6 +16,10 @@ class Npc {
   }
 
   itemTaken() {
+    return;
+  }
+
+  getDialogue() {
     return;
   }
 }

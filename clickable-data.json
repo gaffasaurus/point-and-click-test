@@ -12,12 +12,12 @@
           "name": "Geff",
           "id": "geff",
           "class": "Geff",
-          "dialogue": [
-            ["Hey man, it's me, geff. How's it going?"],
-            ["I always wondered what was in that chest. I've been sitting here for a long time but I haven't been able to move from this spot.", "My existence is pain."],
-            ["Can you please tell the devs to finish up this testing phase so I can leave? I haven't seen my family in weeks."],
-            ["What's that? Dave is scared of me?", "How is he even talking to you when he doesn't have a mouth?"]
-          ],
+          "dialogue": {
+            "intro": ["Hey man, it's me, geff. How's it going?"],
+            "hasClown": ["I always wondered what was in that chest. I've been sitting here for a long time but I haven't been able to move from this spot.", "My existence is pain."],
+            "hasClownKey": ["Can you please tell the devs to finish up this testing phase so I can leave? I haven't seen my family in weeks."],
+            "spokeWithDave": ["What's that? Dave is scared of me?", "How is he even talking to you when he doesn't have a mouth?"]
+          },
           "receiveDialogue": {
 
           },
@@ -206,7 +206,7 @@
         "preload": ["images/combolock unlocked.png"],
         "action": {
           "type": "codeLock",
-          "solution": "69420",
+          "solution": "00000",
           "content": "number",
           "incorrectText": ["The lock doesn't budge."],
           "unlockText": ["The lock opens with a click."],
@@ -235,13 +235,14 @@
           "name": "Dave",
           "id": "dave",
           "class": "ExampleNpc",
-          "dialogue": [
-            ["Hey! It's nice to see another face around here. It's a testing environment, so it can get pretty lonely here.", "The skeleton key in this room should be able to unlock that chest in the room you started in. You can return there with that door to the left."],
-            ["If you're reading this you've obtained the Clown Doll. Great work!", "Now, try combining the clown doll with that key from earlier."],
-            ["Wow! You never cease to amaze me. That clown key isn't used for anything right now, since it was just implemented for testing, but I can hold onto it for you if you like.", "Isn't combining items cool?"],
-            ["Oh, by the way, now that you've done everything else, I'll tell you the code to that lock.", "It's 69420.", "The devs have reached the pinnacle of comedy. It does not get better than this."],
-            ["Woah, how did you know the code to the lock before I told you? You must be super smart.", "Do you think you could use that large brain of yours to do something about that dinosaur sitting in the other room?", "He's really creeping me out."]
-          ],
+          "dialogue": {
+            "intro": ["Hey! It's nice to see another face around here. It's a testing environment, so it can get pretty lonely here.", "The skeleton key in this room should be able to unlock that chest in the room you started in. You can return there with that door to the left."],
+            "hasDoll": ["If you're reading this you've obtained the Clown Doll. Great work!", "Now, try combining the clown doll with that key from earlier."],
+            "hasClownKey": ["Wow! You never cease to amaze me. That clown key isn't used for anything right now, since it was just implemented for testing, but I can hold onto it for you if you like.", "Isn't combining items cool?"],
+            "clownKeyGiven": ["Oh, by the way, now that you've done everything else, I'll tell you the code to that lock.", "It's 69420.", "The devs have reached the pinnacle of comedy. It does not get better than this."],
+            "unlockedBeforeHint": ["Woah, how did you know the code to the lock before I told you? You must be super smart.", "Do you think you could use that large brain of yours to do something about that dinosaur sitting in the other room?", "He's really creeping me out."],
+            "unlocked": ["Nice work! With these locks implemented, there are all sorts of possibilities for cool puzzles that can be added."]
+          },
           "receiveDialogue": {
             "clownKey": ["You want me to hold on to this for you? I would be honored to!", "I'm glad that the item gifting mechanic is working properly."]
           },

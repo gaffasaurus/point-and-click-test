@@ -4,30 +4,39 @@ class ExampleNpc extends Npc {
     this.gifted = false;
   }
 
-  incrementCounter() {
-    for (let item of inventory.items) {
-      if (item.id == "clownDoll") {
-        this.counter = 1;
-      }
-      if (item.id == "clownKey") {
-        this.counter = 2;
-      }
-    }
-    if (this.gifted) {
-      this.counter = 3;
-    }
-    const clickables = roomData[currentRoom].clickables;
+  lockCracked() {
+    const clickables = roomData['third room'].clickables;
     for (let i = 0; i < clickables.length; i++) {
       if (clickables[i].action.id === "comboLockUnlocked") {
-        this.counter = 4;
-        break;
+        return true;
       }
     }
+    return false;
+  }
 
+  getDialogue() {
+    let hasDoll = false, hasClownKey = false;
+    for (let item of inventory.items) {
+      switch (item.id) {
+        case 'clownDoll': hasDoll = true; break;
+        case 'clownKey': hasClownKey = true; break;
+      }
+    }
+    if (this.lockCracked()) {
+      return this.gifted === 'before-cracked' ? 'unlocked' : 'unlockedBeforeHint';
+    } else if (this.gifted) {
+      return 'clownKeyGiven';
+    } else if (hasClownKey) {
+      return 'hasClownKey';
+    } else if (hasDoll) {
+      return 'hasDoll';
+    } else {
+      return 'intro';
+    }
   }
 
   receiveItem() {
-    this.gifted = true;
+    this.gifted = this.lockCracked() ? 'after-cracked' : 'before-cracked';
   }
 
   itemTaken() {

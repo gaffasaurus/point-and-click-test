@@ -70,8 +70,11 @@ function createNPC(action) {
       break;
     }
     case "Geff": {
-      npcs.push (new Geff(action.name, action.id, action.dialogue, action.visible));
+      npcs.push(new Geff(action.name, action.id, action.dialogue, action.visible));
       break;
+    }
+    default: {
+      throw new Error(`${type} is not a valid NPC.`);
     }
   }
 }
@@ -137,16 +140,9 @@ function drawClickables() {
   }
 }
 
-function updateNPCs() {
-  for (let npc of npcs) {
-    npc.incrementCounter();
-  }
-}
-
 function redraw() {
   drawBackground();
   drawClickables();
-  updateNPCs();
   textbox.draw();
   inventory.draw();
   note.draw();

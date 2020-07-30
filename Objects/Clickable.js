@@ -101,6 +101,7 @@ class Clickable {
         for (let npc of npcs) {
           if (npc.id === action.id) {
             for (let selected of inventory.selected) {
+              // If the selected item can be received by the NPC
               if (selected.id in action.receiveDialogue) {
                 textbox.setText(action.receiveDialogue[selected.id])
                 textbox.setSpeaker(action.name);
@@ -111,26 +112,32 @@ class Clickable {
                 return;
               }
             }
+            // If the user had selected an item but the NPC doesn't accept it,
+            // reject it.
             if (inventory.selected.length > 0) {
               textbox.setText(action.rejectDialogue);
               textbox.setSpeaker(action.name);
               textbox.setVisible(true);
               inventory.selected = [];
-            } else if (!Array.isArray(action.dialogue[npc.counter])) {
-              const dialogue = action.dialogue[npc.counter];
-              if (dialogue.type == "item") {
-                textbox.setText(dialogue.text);
+            } else {
+              const dialogue = action.dialogue[npc.getDialogue()];
+              if (!Array.isArray(dialogue)) {
+                // The dialogue can be a special object (for giving items, etc.)
+                if (dialogue.type == "item") {
+                  textbox.setText(dialogue.text);
+                  textbox.setSpeaker(action.name);
+                  textbox.setVisible(true);
+                  const icon = new Image();
+                  icon.src = dialogue.image;
+                  inventory.addItem(new Item(icon, dialogue.name, dialogue.id, dialogue.reusable, dialogue.combinations));
+                  npc.itemTaken();
+                }
+              } else {
+                // Otherwise, the dialogue can be an array of strings
+                textbox.setText(dialogue);
                 textbox.setSpeaker(action.name);
                 textbox.setVisible(true);
-                const icon = new Image();
-                icon.src = dialogue.image;
-                inventory.addItem(new Item(icon, dialogue.name, dialogue.id, dialogue.reusable, dialogue.combinations));
-                npc.itemTaken();
               }
-            } else {
-              textbox.setText(action.dialogue[npc.counter]);
-              textbox.setSpeaker(action.name);
-              textbox.setVisible(true);
             }
           }
         }

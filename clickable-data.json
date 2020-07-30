@@ -202,10 +202,12 @@
         "x": 475,
         "y": 250,
         "idealHeight": 150,
+        "preload": ["images/combolock unlocked.png"],
         "action": {
           "type": "codeLock",
-          "solution": 34315,
+          "solution": "69420",
           "content": "number",
+          "incorrectText": ["The lock doesn't budge."],
           "unlockText": ["The lock opens with a click."],
           "unlocked": {
             "type": "image",
@@ -215,7 +217,8 @@
             "idealHeight": 150,
             "action": {
               "type": "text",
-              "text": ["The lock is open."]
+              "text": ["The lock is open."],
+              "id": "comboLockUnlocked"
             }
           }
         }
@@ -235,14 +238,7 @@
             ["Hey! It's nice to see another face around here. It's a testing environment, so it can get pretty lonely here.", "The skeleton key in this room should be able to unlock that chest in the room you started in. You can return there with that door to the left."],
             ["If you're reading this you've obtained the Clown Doll. Great work!", "Now, try combining the clown doll with that key from earlier."],
             ["Wow! You never cease to amaze me. That clown key isn't used for anything right now, since it was just implemented for testing, but I can hold onto it for you if you like.", "Isn't combining items cool?"],
-            {
-              "type": "item",
-              "text": ["Oh, did you want the Clown Key back? Here you go!", "If you want me to hold on to it again, I'd be happy to do so."],
-              "image": "images/clown key.png",
-              "name": "Clown Key",
-              "id": "clownKey",
-              "reusable": false
-            }
+            ["Oh, by the way, now that you've done everything else, I'll tell you the code to that lock.", "It's 69420.", "The devs have reached the pinnacle of comedy. It does not get better than this."]
           ],
           "receiveDialogue": {
             "clownKey": ["You want me to hold on to this for you? I would be honored to!", "I'm glad that the item gifting mechanic is working properly."]

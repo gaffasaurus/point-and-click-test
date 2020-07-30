@@ -93,7 +93,7 @@ class Clickable {
         break;
       }
       case 'codeLock': {
-        codeLock.setSolution(action.solution, action.content);
+        codeLock.setVariables(action.solution, action.content, action.incorrectText, action.unlockText, this, action.unlocked);
         codeLock.setVisible(true);
         break;
       }

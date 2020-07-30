@@ -46,6 +46,7 @@ function clickableFromJson ({ type, x, y, action, ...data }) {
   switch (type) {
     case 'image': {
       // Load the image and make a Clickable from it
+      console.log(images[data.image]);
       const clickable = new ClickableImage(images[data.image], x, y, action);
       if (data.idealHeight) {
         clickable.scale = data.idealHeight / clickable.image.height;
@@ -202,6 +203,12 @@ function checkInventoryBoxes(e) {
   }
 }
 
+function manageCodeLock(e) {
+  if (codeLock.visible) {
+    codeLock.onClick(e);
+  }
+}
+
 function selectFromInventory() {
   if (inventory.visible) {
     inventory.selectItem();
@@ -210,19 +217,23 @@ function selectFromInventory() {
 
 window.addEventListener('click', e => {
   if (currentRoom === null) return;
-  if (!textbox.visible) {
+  if (!textbox.visible && !codeLock.visible) {
     checkClickablesClicked(e);
   }
   manageTextBox(e);
   manageNote(e);
+  manageCodeLock(e);
   selectFromInventory();
   redraw();
 });
 
 window.addEventListener('mousemove', e => {
   if (currentRoom === null) return;
-  if (!textbox.visible) {
+  if (!textbox.visible && !codeLock.visible) {
     checkClickablesHovered(e);
+  }
+  if (codeLock.visible) {
+    codeLock.hover(e);
   }
   checkShowInventory(e);
   checkInventoryBoxes(e)

@@ -113,6 +113,7 @@ let currentRoom = null;
 let textbox;
 let inventory;
 let note;
+let codeLock;
 loadRoomData('clickable-data.json')
   .then(rooms => {
     roomData = rooms;
@@ -121,6 +122,7 @@ loadRoomData('clickable-data.json')
     textbox = new TextBox();
     inventory = new Inventory();
     note = new Note();
+    codeLock = new CodeLock();
     redraw();
   });
 
@@ -148,6 +150,7 @@ function redraw() {
   textbox.draw();
   inventory.draw();
   note.draw();
+  codeLock.draw();
 }
 
 

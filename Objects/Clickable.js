@@ -90,6 +90,12 @@ class Clickable {
         zoomed.src = action.image;
         note.setImage(zoomed);
         note.setVisible(true);
+        break;
+      }
+      case 'codeLock': {
+        codeLock.setSolution(action.solution, action.content);
+        codeLock.setVisible(true);
+        break;
       }
       case 'npc': {
         for (let npc of npcs) {

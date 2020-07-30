@@ -183,6 +183,35 @@
             }
           ]
         }
+      },
+      {
+        "type": "image",
+        "image": "npc sprite image",
+        "x": 0,
+        "y": 0,
+        "idealHeight": 550,
+        "action": {
+          "type": "npc",
+          "name": "NPC Name",
+          "id": "NPC ID",
+          "class": "The filename of the specific NPC",
+          "dialogue": [
+            ["Dialogues"],
+            {
+              "type": "item //Use a dict if NPC is supposed to give you an item",
+              "text": ["Dialogue when NPC gives you th eitem"],
+              "image": "Inventory icon image",
+              "name": "Item name",
+              "id": "Item ID",
+              "reusable": false
+            }
+          ],
+          "receiveDialogue": {
+            "clownKey": ["Dialogue when giving NPC an item"]
+          },
+          "rejectDialogue": ["Dialogue when giving NPC an item they cant take"],
+          "visible": true //Decides if NPC is visible, can be used if NPC needs to appear later in a room
+        }
       }
     ]
   }

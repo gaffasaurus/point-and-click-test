@@ -1,7 +1,5 @@
 class Inventory {
   constructor() {
-    this.x = IDEAL_WIDTH / 5.68;
-    this.y = 0;
     // this.width = 2 * (IDEAL_WIDTH / 2 - this.x); //centers // See below
     // this.height = IDEAL_WIDTH / RATIO / 6; // See below
     this.bgColor = "rgba(192, 192, 192, 0.9)";
@@ -15,6 +13,8 @@ class Inventory {
     this.selectedOutline = "rgb(255, 255, 0)"
     this.width = this.maxSlots * (this.boxSize + this.boxSpacing) + this.boxSpacing;
     this.height = this.boxYOffset + this.boxSize + this.boxSpacing;
+    this.x = IDEAL_WIDTH / 2 - this.width / 2;
+    this.y = 0;
     this.boxXOffset = this.x + (this.width / 2 - this.boxesWidth / 2);
     //text
     this.text = "Inventory:";

@@ -198,6 +198,30 @@
       },
       {
         "type": "image",
+        "image": "images/combolock locked.png",
+        "x": 475,
+        "y": 250,
+        "idealHeight": 150,
+        "action": {
+          "type": "codeLock",
+          "solution": 34315,
+          "content": "number",
+          "unlockText": ["The lock opens with a click."],
+          "unlocked": {
+            "type": "image",
+            "image": "images/combolock unlocked.png",
+            "x": 475,
+            "y": 250,
+            "idealHeight": 150,
+            "action": {
+              "type": "text",
+              "text": ["The lock is open."]
+            }
+          }
+        }
+      },
+      {
+        "type": "image",
         "image": "images/person.png",
         "x": 800,
         "y": 50,

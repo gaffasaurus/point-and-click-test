@@ -16,16 +16,6 @@ class ExampleNpc extends Npc {
     if (this.gifted) {
       this.counter = 3;
     }
-    if (this.counter <= 3) {
-      const clickables = roomData[currentRoom].clickables;
-      for (let i = 0; i < clickables.length; i++) {
-        if (clickables[i].action.id === "comboLockUnlocked") {
-          this.counter = 4;
-          break;
-        }
-      }
-    }
-
   }
 
   receiveItem() {

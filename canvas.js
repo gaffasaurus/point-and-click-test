@@ -111,12 +111,13 @@ async function loadRoomData(jsonUrl) {
   return rooms;
 }
 
+let loaded = false;
+
 let roomData = {};
 let currentRoom = null;
 let textbox;
 let inventory;
 let note;
-let codeLock;
 loadRoomData('clickable-data.json')
   .then(rooms => {
     roomData = rooms;
@@ -126,8 +127,22 @@ loadRoomData('clickable-data.json')
     inventory = new Inventory();
     note = new Note();
     codeLock = new CodeLock();
+    loaded = true;
     redraw();
   });
+
+loadingScreen();
+
+function loadingScreen() {
+  ctx.save();
+  ctx.fillStyle = "rgb(0, 0, 0)";
+  ctx.fillRect(0, 0, IDEAL_WIDTH, IDEAL_WIDTH / RATIO);
+  ctx.font = "50px sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.fillText("Loading...", IDEAL_WIDTH / 2, IDEAL_WIDTH / RATIO / 2);
+  ctx.restore();
+}
 
 //Draw background
 function drawBackground() {
@@ -212,7 +227,7 @@ function selectFromInventory() {
 
 window.addEventListener('click', e => {
   if (currentRoom === null) return;
-  if (!textbox.visible && !codeLock.visible) {
+  if (!textbox.visible && !codeLock.visible && !note.visible) {
     checkClickablesClicked(e);
   }
   manageTextBox(e);
@@ -224,7 +239,7 @@ window.addEventListener('click', e => {
 
 window.addEventListener('mousemove', e => {
   if (currentRoom === null) return;
-  if (!textbox.visible && !codeLock.visible) {
+  if (!textbox.visible && !codeLock.visible && !note.visible) {
     checkClickablesHovered(e);
   }
   if (codeLock.visible) {

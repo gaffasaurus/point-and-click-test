@@ -206,7 +206,7 @@
         "preload": ["images/combolock unlocked.png"],
         "action": {
           "type": "codeLock",
-          "solution": "00000",
+          "solution": "69420",
           "content": "number",
           "incorrectText": ["The lock doesn't budge."],
           "unlockText": ["The lock opens with a click."],

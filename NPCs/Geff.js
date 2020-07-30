@@ -11,6 +11,13 @@ class Geff extends Npc {
       if (item.id == "clownKey") {
         this.counter = 2;
       }
+      for (let npc of npcs) {
+        console.log(npc.id, npc.counter);
+        if (npc.id === "dave" && npc.counter === 4) {
+          this.counter = 3;
+          break;
+        }
+      }
     }
   }
 }

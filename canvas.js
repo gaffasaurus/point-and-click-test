@@ -46,7 +46,6 @@ function clickableFromJson ({ type, x, y, action, ...data }) {
   switch (type) {
     case 'image': {
       // Load the image and make a Clickable from it
-      console.log(images[data.image]);
       const clickable = new ClickableImage(images[data.image], x, y, action);
       if (data.idealHeight) {
         clickable.scale = data.idealHeight / clickable.image.height;
